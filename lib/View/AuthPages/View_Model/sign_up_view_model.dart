@@ -1,0 +1,81 @@
+// ignore_for_file: unnecessary_this, non_constant_identifier_names
+
+import 'dart:developer';
+
+import 'package:adwiah/Models/proffisionslist.dart';
+import 'package:adwiah/View/AuthPages/verificaion_view.dart';
+import 'package:adwiah/services/auth_service.dart';
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class SignUpController extends GetxController {
+  final _authService = AuthService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController f_nameController = TextEditingController();
+  final TextEditingController l_nameController = TextEditingController();
+  final TextEditingController proffision_nameController =
+      TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+
+  final GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
+  var signup = false.obs;
+  var isPasswordHidden = true.obs;
+
+  RxString? x;
+  RxBool isHidden = true.obs;
+  void togglePasswordView() {
+    isHidden(!isHidden.value);
+    refresh();
+  }
+
+  register() async {
+    this.signUpFormKey.currentState!.save();
+    if (this.signUpFormKey.currentState!.validate()) {
+      var response;
+      this.signup.value = true;
+      try {
+        BotToast.showLoading();
+
+        response = await _authService.register(
+          f_name: this.f_nameController.text,
+          l_name: this.l_nameController.text,
+          proffision_name: this.proffision_nameController.text,
+          phoneNumber: this.phoneNumberController.text,
+          password: this.passwordController.text,
+          email: this.emailController.text,
+        );
+        if (response) {
+          Get.off(Verification(this.emailController.text));
+        }
+      } catch (e) {
+        this.signup.value = false;
+      } finally {
+        BotToast.closeAllLoading();
+      }
+
+      if (response != null) {
+        this.signup.value = false;
+      }
+    }
+  }
+
+  List<Proffisionslist> proffisionslist = <Proffisionslist>[].obs;
+  var isEmpty = false.obs;
+  getproffisionslist() async {
+    try {
+      proffisionslist = await _authService.getproffisionlist();
+
+      isEmpty.value = proffisionslist.length == 0 ? true : false;
+    } catch (e) {
+      print('Errorr $e');
+    }
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    getproffisionslist();
+  }
+}
