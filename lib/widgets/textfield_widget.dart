@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sized_context/sized_context.dart';
 
-class TextFieldAuth extends StatelessWidget {
-  TextFieldAuth(
+class TextFieldWidget extends StatelessWidget {
+  TextFieldWidget(
       {Key? key,
       required this.txtController,
       required this.hint,

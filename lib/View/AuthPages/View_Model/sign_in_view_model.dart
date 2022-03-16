@@ -1,11 +1,11 @@
 // ignore_for_file: unnecessary_this
 
+import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/AuthPages/verificaion_view.dart';
 import 'package:adwiah/View/Home/home.dart';
 import 'package:adwiah/constants/constans.dart';
 import 'package:adwiah/models/login.dart';
 import 'package:adwiah/services/auth_service.dart';
-import 'package:adwiah/services/network_service/network_service.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,29 +16,37 @@ class SignInController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
+  StorageHelperController soragectrl = Get.find<StorageHelperController>();
+
   var loggingIn = false.obs;
-  var isPasswordHidden = true.obs;
-
+  var save = true.obs;
   var isLoading = true.obs;
-  var g = NetworkService();
-
+  var showpass = true.obs;
+  LoginModel? loginData;
   login() async {
     this.signInFormKey.currentState!.save();
     if (this.signInFormKey.currentState!.validate()) {
-      LoginModel? response;
       this.loggingIn.value = true;
       try {
         BotToast.showLoading();
-        response = await _authService.loginWithEmail(
+        loginData = await _authService.loginWithEmail(
           email: this.emailController.text,
           password: this.passwordController.text,
         );
         isLoading(false);
-        if (response != null) {
+        if (loginData != null) {
           this.loggingIn.value = false;
-          if (response.success!) {
-            response.status == 0
-                ? Get.to(() => const Home())
+          if (loginData!.success!) {
+            soragectrl.saveToken(loginData!.userGuidId!);
+
+            soragectrl.saveinfouser(loginData!.fName!, loginData!.lName!,
+                loginData!.mob!, loginData!.proffisionName!);
+            save.value
+                ? soragectrl.saveaccount(
+                    emailController.text, passwordController.text)
+                : soragectrl.saveaccount('', '');
+            loginData!.status == 1
+                ? Get.to(() => Home())
                 : Get.to(Verification(this.emailController.text));
           }
         }
@@ -52,5 +60,12 @@ class SignInController extends GetxController {
         BotToast.closeAllLoading();
       }
     }
+  }
+
+  @override
+  void onInit() async {
+    await soragectrl.readaccount();
+    emailController.text = soragectrl.email.value;
+    passwordController.text = soragectrl.password;
   }
 }

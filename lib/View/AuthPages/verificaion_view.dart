@@ -1,27 +1,15 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:adwiah/View/AuthPages/View_Model/verification_view_model.dart';
 import 'package:adwiah/utils/validator.dart';
-import 'package:adwiah/widgets/header2.dart';
+import 'package:adwiah/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Verification extends StatefulWidget {
-  final email;
-  Verification(this.email);
-  @override
-  _VerificationState createState() => _VerificationState();
-}
-
-class _VerificationState extends State<Verification> {
+class Verification extends StatelessWidget {
+  Verification(this.email, {Key? key}) : super(key: key);
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final VerificatioController controller = Get.put(VerificatioController());
-
-  @override
-  void initState() {
-    super.initState();
-    controller.emailController.text = this.widget.email;
-  }
-
+  final email;
   bool sended = false;
   @override
   Widget build(BuildContext context) {
@@ -30,7 +18,7 @@ class _VerificationState extends State<Verification> {
         children: [
           SizedBox(
             height: 220,
-            child: Header2(),
+            child: Header(),
           ),
           Scaffold(
             backgroundColor: Colors.transparent,
@@ -89,10 +77,11 @@ class _VerificationState extends State<Verification> {
                         key: controller.verifyFormKey,
                         child: Column(
                           children: [
-                            Visibility(
-                              visible: !sended,
+                            SizedBox(
                               child: TextFormField(
-                                controller: controller.emailController,
+                                controller: controller.codeController,
+                                textAlign: TextAlign.center,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
@@ -105,40 +94,14 @@ class _VerificationState extends State<Verification> {
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: BorderSide(
                                           color: Colors.black, width: 2.0)),
-                                  hintText: 'Email',
+                                  hintText: 'code',
                                 ),
-                                validator: (email) =>
-                                    Validator.validateEmail(email),
-                              ),
-                            ),
-                            SizedBox(
-                              child: Visibility(
-                                visible: sended,
-                                child: TextFormField(
-                                  controller: controller.codeController,
-                                  textAlign: TextAlign.center,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                          color: Colors.black, width: 2.0),
-                                    ),
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    hintText: 'code',
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'please enter your code';
-                                    }
-                                    return null;
-                                  },
-                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter your code';
+                                  }
+                                  return null;
+                                },
                               ),
                             )
                           ],
@@ -167,9 +130,7 @@ class _VerificationState extends State<Verification> {
                         minWidth: MediaQuery.of(context).size.width,
                         color: Color(0xff5C376D),
                         onPressed: () {
-                          setState(() {
-                            sended ? controller.verify() : sended = !sended;
-                          });
+                          controller.verify(emaill: email);
                         },
                       ),
                     ),
@@ -185,10 +146,10 @@ class _VerificationState extends State<Verification> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              controller.resendcode();
+                              controller.resendcode(emaill: email);
                             },
                             child: const Text(
-                              'Register !',
+                              'Resend ',
                               style: TextStyle(
                                   color: Color(0xffE66088),
                                   fontWeight: FontWeight.w700,

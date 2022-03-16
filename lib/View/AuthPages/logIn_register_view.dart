@@ -1,5 +1,5 @@
-import 'package:adwiah/View/Components/signin_form.dart';
-import 'package:adwiah/View/Components/signup_form.dart';
+import 'package:adwiah/View/AuthPages/Components/signin_form.dart';
+import 'package:adwiah/View/AuthPages/Components/signup_form.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sized_context/sized_context.dart';

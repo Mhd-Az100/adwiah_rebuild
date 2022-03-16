@@ -1,6 +1,7 @@
 import 'dart:async';
-
+import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/AuthPages/logIn_register_view.dart';
+import 'package:adwiah/View/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,12 +11,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  StorageHelperController soragectrl = Get.find<StorageHelperController>();
+  @override
   void initState() {
-    Timer(
-      Duration(seconds: 3),
-      () => Get.off(LoginRegisterScreen()),
-    );
     super.initState();
+
+    soragectrl.Token == '' || soragectrl.Token == null
+        ? Timer(
+            const Duration(seconds: 3), () => Get.off(LoginRegisterScreen()))
+        : Timer(
+            const Duration(seconds: 3), () => Get.off(LoginRegisterScreen()));
   }
 
   @override
@@ -31,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
               height: size.height,
               child: Center(
                 child: Container(
-                  constraints: BoxConstraints.expand(),
+                  constraints: const BoxConstraints.expand(),
                   decoration: const BoxDecoration(
                       image: DecorationImage(
                           image:
@@ -41,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             Center(
-              child: Container(
+              child: SizedBox(
                 height: size.height / 5,
                 width: size.width / 1.5,
                 child: Image.asset(

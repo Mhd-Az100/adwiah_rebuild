@@ -1,10 +1,12 @@
 // import 'package:device_info/device_info.dart';
 import 'dart:io';
 
-import 'package:adwiah/View/InitialPages/splashScreen.dart';
-import 'package:adwiah/binding/sign_in_page_binding.dart';
+import 'package:adwiah/Utils/storageController.dart';
+import 'package:adwiah/View/InitialPages/splash_screen.dart';
+import 'package:adwiah/binding/binding.dart';
 import 'package:adwiah/constants/Helper.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:device_information/device_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -17,18 +19,18 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
+
   await GetStorage.init();
-  //============get device code============//
-  Helper.Code = Platform.isIOS ? Helper.PlatformIos : Helper.PlatformAndroid;
+  //============get device code and imei============//
+  // Helper.Code = Platform.isIOS ? Helper.PlatformIos : Helper.PlatformAndroid;
+  try {
+    Helper.Imei = await DeviceInformation.deviceIMEINumber;
+    print(Helper.Imei);
+  } on PlatformException {
+    print('Failed to get platform version');
+  }
 
   //=======================================//
-
-  //=======get imei in ios=======//! error build when use device_info plugin
-  // final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
-  // var data = await deviceInfoPlugin.iosInfo;
-  // Helper.Imei =
-  // Platform.isIOS ? data.identifierForVendor : await UniqueIdentifier.serial;
-  //============================//
 
   runApp(MyApp());
 }

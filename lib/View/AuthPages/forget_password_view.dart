@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors
-import 'package:adwiah/widgets/header2.dart';
+import 'package:adwiah/widgets/header.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
@@ -26,7 +26,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         children: [
           SizedBox(
             height: 220,
-            child: Header2(),
+            child: Header(),
           ),
           Scaffold(
             backgroundColor: Colors.transparent,

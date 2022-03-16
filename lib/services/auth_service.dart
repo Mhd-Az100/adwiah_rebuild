@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:adwiah/Models/proffisionslist.dart';
 import 'package:adwiah/View/AuthPages/logIn_register_view.dart';
 import 'package:adwiah/constants/Helper.dart';
@@ -23,7 +21,7 @@ class AuthService {
     LoginModel? loginRespons;
 
     var response = await _network.get(
-      'get_token/${Helper.Code}/$email/$password',
+      url: 'get_token/${Helper.Code}/$email/$password',
     );
     if (response != null && response["success"] == true) {
       loginRespons = LoginModel.fromJson(response);
@@ -109,8 +107,8 @@ class AuthService {
     required String codeverify,
     required String email,
   }) async {
-    var response = await _network.post(
-        url: 'verify_code/${Helper.Code}/$email/$codeverify');
+    var response = await _network.get(
+        url: 'activate_new_account/${Helper.Code}/$email/$codeverify');
     if (response != null) {
       // fetchUserNameandPhoneNumber();
       BotToast.showText(text: '$response', align: Alignment.center);
@@ -125,8 +123,8 @@ class AuthService {
   Future resendCode({
     required String email,
   }) async {
-    var response =
-        await _network.get('resend_verification_code/${Helper.Code}/$email');
+    var response = await _network.get(
+        url: 'resend_verification_code/${Helper.Code}/$email');
     if (response != null) {
       BotToast.showText(text: '$response', align: Alignment.center);
       return true;
@@ -150,22 +148,6 @@ class AuthService {
     );
     if (response != null) {
       return true;
-    } else {
-      var error = response['message'];
-      showToast(error);
-      return false;
-    }
-  }
-
-  Future getproffisionlist() async {
-    List<Proffisionslist> proffisionslist = [];
-
-    var response = await _network.get('Geproffisionslist');
-    if (response != null) {
-      for (var item in response) {
-        proffisionslist.add(Proffisionslist.fromJson(item));
-      }
-      return proffisionslist;
     } else {
       var error = response['message'];
       showToast(error);

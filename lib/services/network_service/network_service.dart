@@ -1,28 +1,36 @@
-import 'package:adwiah/constants/storage_constants.dart';
-import 'package:adwiah/services/logging_service.dart';
-import 'package:http/http.dart' as http;
-import 'package:retry/retry.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:adwiah/Utils/storageController.dart';
+import 'package:adwiah/services/logging_service.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:retry/retry.dart';
 
 import 'api_exceptions.dart';
 
 class NetworkService {
   static const String BASE_URL = "https://www.hippokrateways.com/";
-
   final _log = LogService();
+
+  // ignore: prefer_final_fields
   Map<String, String> _requestHeaders = {
     HttpHeaders.acceptHeader: "application/json",
     "X-Requested-With": "XMLHttpRequest"
   };
-
-  Future<dynamic> get(String url) async {
+  // ignore: prefer_final_fields
+  Map<String, String> _requestHeadersToken = {
+    // HttpHeaders.acceptHeader: "application/json",
+    // "X-Requested-With": "XMLHttpRequest",
+    "token": Get.find<StorageHelperController>().Token,
+  };
+  Future<dynamic> get({String? url, String? token}) async {
     var responseJson;
     try {
       final response = await retry(
         () => http
-            .get(Uri.parse(BASE_URL + url), headers: _requestHeaders)
+            .get(Uri.parse(BASE_URL + url!),
+                headers: token == null ? _requestHeaders : _requestHeadersToken)
             .timeout(const Duration(seconds: 10)),
         retryIf: (error) =>
             error is SocketException || error is TimeoutException,
@@ -36,7 +44,7 @@ class NetworkService {
     return responseJson;
   }
 
-  Future<dynamic> post({String? url, dynamic body}) async {
+  Future<dynamic> post({String? url, dynamic body, String? token}) async {
     // appendAPITokenToHeader();
     print("post $body");
 
@@ -44,11 +52,8 @@ class NetworkService {
     var responseJson;
     try {
       final response = await http.post(Uri.parse(BASE_URL + url),
-          body: json.encoder.convert(body),
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
+          body: body,
+          headers: token == null ? _requestHeaders : _requestHeadersToken);
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');

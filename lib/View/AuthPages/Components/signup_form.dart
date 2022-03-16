@@ -1,30 +1,18 @@
 import 'dart:ui';
 
 import 'package:adwiah/View/AuthPages/View_Model/sign_up_view_model.dart';
+import 'package:adwiah/View/InitialPages/View_Model/initial_app_view_model.dart';
 import 'package:adwiah/utils/getPryvacyAndPolicy.dart';
 import 'package:adwiah/utils/validator.dart';
-import 'package:adwiah/widgets/textfield_auth.dart';
+import 'package:adwiah/widgets/textfeildpass_widget.dart';
+import 'package:adwiah/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 
-class SignUpForm extends StatefulWidget {
-  @override
-  _SignUpFormState createState() => _SignUpFormState();
-}
-
-class _SignUpFormState extends State<SignUpForm> {
-  bool showPasswd = true;
-  var accept = false;
+class SignUpForm extends StatelessWidget {
   final SignUpController controller = Get.find<SignUpController>();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  var _currencies = [];
-  String? currentJob;
+  final InitialAppController ctrl = Get.find<InitialAppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -99,9 +87,8 @@ class _SignUpFormState extends State<SignUpForm> {
                             ),
                             height: 45,
                             onPressed: () {
-                              setState(() {
-                                this.accept = true;
-                              });
+                              controller.accept.value = true;
+
                               Navigator.of(context).pop();
                             },
                             color: Color(0xff5C376D),
@@ -149,7 +136,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(
             height: 10,
           ),
-          TextFieldAuth(
+          TextFieldWidget(
             txtController: controller.f_nameController,
             hint: 'First Name',
             msgValidation: 'Please fill your first name',
@@ -157,7 +144,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(
             height: 10,
           ),
-          TextFieldAuth(
+          TextFieldWidget(
             txtController: controller.l_nameController,
             hint: 'Last Name',
             msgValidation: 'Please fill your last name',
@@ -165,7 +152,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(
             height: 10,
           ),
-          TextFieldAuth(
+          TextFieldWidget(
             txtController: controller.emailController,
             hint: 'E-mail',
             msgValidation: '',
@@ -174,7 +161,7 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(
             height: 10,
           ),
-          TextFieldAuth(
+          TextFieldWidget(
             txtController: controller.phoneNumberController,
             hint: 'Phone Number',
             msgValidation: 'Please fill your phone number',
@@ -203,59 +190,61 @@ class _SignUpFormState extends State<SignUpForm> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Obx(() {
-                            return !controller.isEmpty.value
+                            return !ctrl.isEmpty.value
                                 ? Expanded(
                                     child: ListView.builder(
-                                        itemCount:
-                                            controller.proffisionslist.length,
+                                        itemCount: ctrl.proffisionslist.length,
                                         itemBuilder: (context, i) {
-                                          return Row(
-                                            children: [
-                                              Expanded(
-                                                child: ListTile(
-                                                  title: Text(controller
-                                                      .proffisionslist[i]
-                                                      .name!),
-                                                  onTap: () {
-                                                    setState(() {
-                                                      currentJob = controller
+                                          return Obx(() => Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: ListTile(
+                                                      title: Text(ctrl
                                                           .proffisionslist[i]
-                                                          .name!;
-                                                      controller
-                                                              .proffision_nameController
-                                                              .text =
-                                                          controller
+                                                          .name!),
+                                                      onTap: () {
+                                                        controller.currentJob
+                                                                .value =
+                                                            ctrl
+                                                                .proffisionslist[
+                                                                    i]
+                                                                .name!;
+                                                        controller
+                                                                .proffision_nameController
+                                                                .text =
+                                                            ctrl
+                                                                .proffisionslist[
+                                                                    i]
+                                                                .name!;
+
+                                                        Navigator.pop(context);
+                                                      },
+                                                    ),
+                                                  ),
+                                                  controller.currentJob.value ==
+                                                          ctrl
                                                               .proffisionslist[
                                                                   i]
-                                                              .name!;
-                                                    });
-                                                    Navigator.pop(context);
-                                                  },
-                                                ),
-                                              ),
-                                              currentJob ==
-                                                      controller
-                                                          .proffisionslist[i]
-                                                          .name!
-                                                  ? SizedBox(
-                                                      height: 10,
-                                                      width: 10,
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                            color:
-                                                                Colors.purple,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        50)),
-                                                      ),
-                                                    )
-                                                  : const SizedBox()
-                                            ],
-                                          );
+                                                              .name!
+                                                      ? SizedBox(
+                                                          height: 10,
+                                                          width: 10,
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                color: Colors
+                                                                    .purple,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            50)),
+                                                          ),
+                                                        )
+                                                      : const SizedBox()
+                                                ],
+                                              ));
                                         }),
                                   )
-                                : Text('Proffision is Empty');
+                                : const Text('Proffision is Empty');
                           }),
                         ],
                       ),
@@ -265,7 +254,7 @@ class _SignUpFormState extends State<SignUpForm> {
               );
             },
             child: IgnorePointer(
-              child: TextFieldAuth(
+              child: TextFieldWidget(
                 txtController: controller.proffision_nameController,
                 hint: 'Profession',
                 msgValidation: 'Please fill your profession',
@@ -275,64 +264,37 @@ class _SignUpFormState extends State<SignUpForm> {
           const SizedBox(
             height: 10,
           ),
-          TextFormField(
+          TextFeildPassWidget(
+            showPasswd: controller.showpass,
             controller: controller.passwordController,
-            decoration: InputDecoration(
-              suffixIcon: IconButton(
-                  icon: Icon(
-                      showPasswd ? Icons.visibility : Icons.visibility_off),
-                  onPressed: () {
-                    setState(() {
-                      showPasswd = !showPasswd;
-                    });
-                  }),
-              contentPadding: EdgeInsets.symmetric(
-                  vertical: 10.0 +
-                      ((context.diagonalInches / 6.0).floorToDouble() * 10),
-                  horizontal: 10.0),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(100),
-                borderSide: const BorderSide(color: Colors.black, width: 2.0),
-              ),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(100),
-                  borderSide: BorderSide(color: Colors.black, width: 2.0)),
-              hintText: 'Password',
-            ),
-            obscureText: showPasswd,
-            validator: (value) {
-              if (value!.isEmpty || value.length < 6) {
-                return 'Password must be 6 charecters or more';
-              }
-              return null;
-            },
+            txt: 'password',
           ),
           const SizedBox(
             height: 20,
           ),
-          CheckboxListTile(
-            value: accept,
-            onChanged: (value) {
-              showPrivacyDialog();
-            },
-            activeColor: Colors.white38,
-            checkColor: Color(0xff5C376D),
-            subtitle: RichText(
-              textScaleFactor: MediaQuery.of(context).textScaleFactor,
-              maxLines: 4,
-              text: const TextSpan(
-                  children: [
-                    TextSpan(
-                        text:
-                            'By creating an account you agree to our Terms of Service and Privacy Policy'),
-                  ],
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 16,
-                    color: Color(0xff5C376D),
-                  )),
-            ),
-          ),
+          Obx(() => CheckboxListTile(
+                value: controller.accept.value,
+                onChanged: (value) {
+                  showPrivacyDialog();
+                },
+                activeColor: Colors.white38,
+                checkColor: Color(0xff5C376D),
+                subtitle: RichText(
+                  textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                  maxLines: 4,
+                  text: const TextSpan(
+                      children: [
+                        TextSpan(
+                            text:
+                                'By creating an account you agree to our Terms of Service and Privacy Policy'),
+                      ],
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 16,
+                        color: Color(0xff5C376D),
+                      )),
+                ),
+              )),
           const SizedBox(
             height: 20,
           ),

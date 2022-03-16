@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_this, non_constant_identifier_names
 
-import 'dart:developer';
-
 import 'package:adwiah/Models/proffisionslist.dart';
 import 'package:adwiah/View/AuthPages/verificaion_view.dart';
 import 'package:adwiah/services/auth_service.dart';
@@ -16,19 +14,13 @@ class SignUpController extends GetxController {
   final TextEditingController l_nameController = TextEditingController();
   final TextEditingController proffision_nameController =
       TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
-
+  final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   var signup = false.obs;
-  var isPasswordHidden = true.obs;
-
-  RxString? x;
-  RxBool isHidden = true.obs;
-  void togglePasswordView() {
-    isHidden(!isHidden.value);
-    refresh();
-  }
+  var showpass = true.obs;
+  var currentJob = ''.obs;
+  var accept = false.obs;
 
   register() async {
     this.signUpFormKey.currentState!.save();
@@ -48,6 +40,8 @@ class SignUpController extends GetxController {
         );
         if (response) {
           Get.off(Verification(this.emailController.text));
+        } else {
+          BotToast.showText(text: response["message"]);
         }
       } catch (e) {
         this.signup.value = false;
@@ -59,23 +53,5 @@ class SignUpController extends GetxController {
         this.signup.value = false;
       }
     }
-  }
-
-  List<Proffisionslist> proffisionslist = <Proffisionslist>[].obs;
-  var isEmpty = false.obs;
-  getproffisionslist() async {
-    try {
-      proffisionslist = await _authService.getproffisionlist();
-
-      isEmpty.value = proffisionslist.length == 0 ? true : false;
-    } catch (e) {
-      print('Errorr $e');
-    }
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-    getproffisionslist();
   }
 }

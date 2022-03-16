@@ -4,15 +4,15 @@
 
 import 'dart:convert';
 
-List<Proffisionslist> proffisionslistFromJson(String str) =>
-    List<Proffisionslist>.from(
-        json.decode(str).map((x) => Proffisionslist.fromJson(x)));
+List<ProffisionslistModel> proffisionslistFromJson(String str) =>
+    List<ProffisionslistModel>.from(
+        json.decode(str).map((x) => ProffisionslistModel.fromJson(x)));
 
-String proffisionslistToJson(List<Proffisionslist> data) =>
+String proffisionslistToJson(List<ProffisionslistModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Proffisionslist {
-  Proffisionslist({
+class ProffisionslistModel {
+  ProffisionslistModel({
     this.id,
     this.name,
   });
@@ -20,8 +20,8 @@ class Proffisionslist {
   int? id;
   String? name;
 
-  factory Proffisionslist.fromJson(Map<String, dynamic> json) =>
-      Proffisionslist(
+  factory ProffisionslistModel.fromJson(Map<String, dynamic> json) =>
+      ProffisionslistModel(
         id: json["id"],
         name: json["name"],
       );
