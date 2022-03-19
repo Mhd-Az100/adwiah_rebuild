@@ -32,13 +32,11 @@ class _ChangePasswordState extends State<ChangePassword> {
               // actions: <Widget>[BarcodeReader(mode: 1)],
               elevation: 0,
               backgroundColor: Colors.transparent,
-              title: Align(
-                alignment: Alignment.center,
-                child: FittedBox(
-                    child: Text('Change Password',
-                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                        style: const TextStyle(fontSize: 24))),
-              ),
+              centerTitle: true,
+              title: FittedBox(
+                  child: Text('Change Password',
+                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                      style: const TextStyle(fontSize: 24))),
             ),
             body: GestureDetector(
               onTap: () {

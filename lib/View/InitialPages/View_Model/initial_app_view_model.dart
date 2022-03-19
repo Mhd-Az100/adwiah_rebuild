@@ -1,6 +1,8 @@
 import 'package:adwiah/Models/about_texts.dart';
+import 'package:adwiah/Models/brand.dart';
 import 'package:adwiah/Models/countries.dart';
 import 'package:adwiah/Models/iconslist.dart';
+import 'package:adwiah/Models/ingredient.dart';
 import 'package:adwiah/Models/mediacal_centers.dart';
 import 'package:adwiah/Models/posts_news.dart';
 import 'package:adwiah/Models/proffisionslist.dart';
@@ -53,6 +55,28 @@ class InitialAppController extends GetxController {
   getMedicianCenters() async {
     try {
       medicalCentersList = await initialService.getMedicianCenters();
+    } catch (e) {
+      print('Errorr $e');
+    }
+  }
+
+  List<IngredientModel> ingredientList = <IngredientModel>[].obs;
+  List<String> ingredientNameList = [];
+  getIngredientList() async {
+    try {
+      ingredientList = await initialService.getIngredient();
+      ingredientList.forEach((element) {
+        ingredientNameList.add(element.name!);
+      });
+    } catch (e) {
+      print('Errorr $e');
+    }
+  }
+
+  List<BrandModel> brandList = <BrandModel>[].obs;
+  getBrandList() async {
+    try {
+      brandList = await initialService.getBrands();
     } catch (e) {
       print('Errorr $e');
     }

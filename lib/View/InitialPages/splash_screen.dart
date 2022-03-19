@@ -19,8 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     soragectrl.Token == '' || soragectrl.Token == null
         ? Timer(
             const Duration(seconds: 3), () => Get.off(LoginRegisterScreen()))
-        : Timer(
-            const Duration(seconds: 3), () => Get.off(LoginRegisterScreen()));
+        : Timer(const Duration(seconds: 3), () => Get.off(Home()));
   }
 
   @override

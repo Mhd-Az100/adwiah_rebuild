@@ -27,6 +27,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  azlistview: ^2.0.0
   bot_toast: ^4.0.1
   cached_network_image: ^3.2.0
   carousel_slider: ^4.0.0
@@ -39,12 +40,14 @@ dependencies:
   get: ^4.6.1
   get_storage: ^2.0.3
   getwidget: ^2.0.5
+  google_maps_flutter: null
   http: ^0.13.4
   image_picker: ^0.8.4+11
   logger: ^1.1.0
   oktoast: ^3.1.5
   retry: ^3.1.0
   sized_context: ^1.0.0+1
+  speech_bubble: ^0.0.9
   tree_view: ^0.0.6
   unique_identifier: ^0.2.2
   url_launcher: ^6.0.20

@@ -40,11 +40,9 @@ class _CahngePasswordScreenState extends State<CahngePasswordScreen> {
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               elevation: 0,
+              centerTitle: true,
               backgroundColor: Colors.transparent,
-              title: Align(
-                alignment: Alignment.center,
-                child: FittedBox(child: Text('Change Password')),
-              ),
+              title: FittedBox(child: Text('Change Password')),
             ),
             body: GestureDetector(
               onTap: () {

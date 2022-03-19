@@ -24,13 +24,11 @@ class MedicalWebsites extends StatelessWidget {
               // actions: <Widget>[BarcodeReader(mode: 1)],
               elevation: 0,
               backgroundColor: Colors.transparent,
-              title: Align(
-                alignment: Alignment.center,
-                child: FittedBox(
-                    child: Text('Health Care Mediacl Websites',
-                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                        style: const TextStyle(fontSize: 24))),
-              ),
+              centerTitle: true,
+              title: FittedBox(
+                  child: Text('Health Care Mediacl Websites',
+                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                      style: const TextStyle(fontSize: 24))),
             ),
             body: Column(children: <Widget>[
               SizedBox(

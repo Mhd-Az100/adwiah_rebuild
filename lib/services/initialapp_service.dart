@@ -1,6 +1,8 @@
 import 'package:adwiah/Models/about_texts.dart';
+import 'package:adwiah/Models/brand.dart';
 import 'package:adwiah/Models/countries.dart';
 import 'package:adwiah/Models/iconslist.dart';
+import 'package:adwiah/Models/ingredient.dart';
 import 'package:adwiah/Models/mediacal_centers.dart';
 import 'package:adwiah/Models/posts_news.dart';
 import 'package:adwiah/Models/proffisionslist.dart';
@@ -79,9 +81,7 @@ class InitialServices {
 
   Future getPostsList() async {
     List<PostsModel> postsList = [];
-    print('[[[[[[[[[[[[[[object]]]]]]]]]]]]]]');
-    print(soragectrl.country_id);
-    print('[[[[[[[[[[[[[[object]]]]]]]]]]]]]]');
+
     var response = await _network.get(
         url: 'get_posts_list/${soragectrl.country_id}/en',
         token: soragectrl.Token);
@@ -90,6 +90,42 @@ class InitialServices {
         postsList.add(PostsModel.fromJson(item));
       }
       return postsList;
+    } else {
+      var error = response['message'];
+      showToast(error);
+      return false;
+    }
+  }
+
+  Future getIngredient() async {
+    List<IngredientModel> ingredList = [];
+    print(soragectrl.Token);
+    var response = await _network.get(
+        url: 'get_ingredient_list/null/${soragectrl.country_id}',
+        token: soragectrl.Token);
+    if (response != null) {
+      for (var item in response) {
+        ingredList.add(IngredientModel.fromJson(item));
+      }
+      return ingredList;
+    } else {
+      var error = response['message'];
+      showToast(error);
+      return false;
+    }
+  }
+
+  Future getBrands() async {
+    List<BrandModel> brandList = [];
+    print(soragectrl.Token);
+    var response = await _network.get(
+        url: 'get_brands_list/null/${soragectrl.country_id}',
+        token: soragectrl.Token);
+    if (response != null) {
+      for (var item in response) {
+        brandList.add(BrandModel.fromJson(item));
+      }
+      return brandList;
     } else {
       var error = response['message'];
       showToast(error);

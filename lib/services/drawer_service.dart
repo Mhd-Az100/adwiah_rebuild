@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:adwiah/Constants/Helper.dart';
 import 'package:adwiah/Services/network_service/network_service.dart';
 import 'package:adwiah/Utils/storageController.dart';
@@ -42,12 +43,11 @@ class DrawerService {
   }) async {
     String base64file = base64Encode(await img.readAsBytes());
     String fileName = img.path.split("/").last;
-    print(fileName);
-    print(base64file);
+
     var response = await _network.post(
         url: 'SaveImage',
         body: {
-          "user_id": soragectrl.Token,
+          "user_guid_id": soragectrl.Token,
           "ImgStr": base64file,
           "ImgName": fileName
         },

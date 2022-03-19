@@ -1,7 +1,4 @@
 // import 'package:device_info/device_info.dart';
-import 'dart:io';
-
-import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/InitialPages/splash_screen.dart';
 import 'package:adwiah/binding/binding.dart';
 import 'package:adwiah/constants/Helper.dart';
@@ -13,7 +10,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:oktoast/oktoast.dart';
 
-final _navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([

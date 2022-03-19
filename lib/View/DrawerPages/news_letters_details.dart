@@ -20,14 +20,11 @@ class NewsDetails extends StatelessWidget {
             appBar: AppBar(
               // actions: <Widget>[BarcodeReader(mode: 1)],
               elevation: 0,
-              backgroundColor: Colors.transparent,
-              title: Align(
-                alignment: Alignment.center,
-                child: FittedBox(
-                    child: Text('News Details',
-                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                        style: TextStyle(fontSize: 24))),
-              ),
+              backgroundColor: Colors.transparent, centerTitle: true,
+              title: FittedBox(
+                  child: Text('News Details',
+                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                      style: TextStyle(fontSize: 24))),
             ),
             body: GestureDetector(
               onTap: () {

@@ -257,68 +257,6 @@ class NavDrawer extends StatelessWidget {
                           },
                         ),
                         ListTileDrawer(
-                          text: 'Patient Profile',
-                          ontap: () {
-                            showDialog<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  insetPadding: EdgeInsets.zero,
-                                  contentPadding: EdgeInsets.zero,
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  title: SizedBox(
-                                    width: double.infinity,
-                                    child: Text(
-                                      'Patient Profile',
-                                      style:
-                                          TextStyle(color: Colors.yellow[900]),
-                                    ),
-                                  ),
-                                  content: SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.7,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: PatientProfileWidgets(),
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    MaterialButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15.0),
-                                      ),
-                                      child: FittedBox(
-                                        child: Text(
-                                          'OK',
-                                          style: TextStyle(
-                                            fontFamily: 'Cairo',
-                                            fontSize: 16,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ),
-                                      ),
-                                      height: 45,
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        // Navigator.push(
-                                        //     context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) =>
-                                        //             PatientHome()));
-                                      },
-                                      color: Color(0xff5C376D),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                        ),
-                        ListTileDrawer(
                           text: 'Change Password',
                           ontap: () {
                             Get.to(() => ChangePassword());

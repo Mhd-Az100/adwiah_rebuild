@@ -28,20 +28,18 @@ class Verification extends StatelessWidget {
               iconTheme: IconThemeData(
                 color: Colors.transparent, //change your color here
               ),
-              title: Align(
-                child: FittedBox(
-                  child: Text(
-                    'Verification Code',
-                    textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontFamily: 'cairo',
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                    ),
+              centerTitle: true,
+              title: FittedBox(
+                child: Text(
+                  'Verification Code',
+                  textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontFamily: 'cairo',
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                alignment: Alignment.centerRight,
               ),
               backgroundColor: Colors.transparent,
             ),

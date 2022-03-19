@@ -23,14 +23,12 @@ class AdwiahIcons extends StatelessWidget {
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.transparent,
-              title: Align(
-                alignment: Alignment.center,
-                child: FittedBox(
-                    child: Text("Adiwah Icons",
-                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                        style: TextStyle(
-                            fontSize: context.diagonalInches >= 7 ? 24 : 18))),
-              ),
+              centerTitle: true,
+              title: FittedBox(
+                  child: Text("Adiwah Icons",
+                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                      style: TextStyle(
+                          fontSize: context.diagonalInches >= 7 ? 24 : 18))),
               // actions: <Widget>[BarcodeReader(mode: 1)],
             ),
             drawer: NavDrawer(),

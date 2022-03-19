@@ -22,14 +22,11 @@ class NewsLetters extends StatelessWidget {
                 // actions: <Widget>[BarcodeReader(mode: 1)],
                 elevation: 0,
                 backgroundColor: Colors.transparent,
-                title: Align(
-                  alignment: Alignment.center,
-                  child: FittedBox(
-                      child: Text('News Letter',
-                          textScaleFactor:
-                              MediaQuery.of(context).textScaleFactor,
-                          style: TextStyle(fontSize: 24))),
-                ),
+                centerTitle: true,
+                title: FittedBox(
+                    child: Text('News Letter',
+                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                        style: TextStyle(fontSize: 24))),
               ),
               body: Column(
                 children: [
