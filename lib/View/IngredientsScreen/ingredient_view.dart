@@ -1,5 +1,7 @@
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
 import 'package:adwiah/View/IngredientsScreen/Components/ingredients_topbar_widget.dart';
+import 'package:adwiah/View/IngredientsScreen/ingred_details_view.dart';
+import 'package:adwiah/View/IngredientsScreen/ingredient_view_model.dart';
 import 'package:adwiah/View/InitialPages/View_Model/initial_app_view_model.dart';
 import 'package:adwiah/Widgets/alphabet_scoll.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
@@ -14,6 +16,8 @@ class IngredientsScreen extends StatefulWidget {
 
 class _IngredientsScreenState extends State<IngredientsScreen> {
   InitialAppController controller = Get.find<InitialAppController>();
+  IngredientController ctrl = Get.put(IngredientController());
+
   @override
   void initState() {
     initData();
@@ -46,7 +50,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
       backgroundColor: const Color(0Xfff5eded),
       body: Stack(
         children: [
-          SizedBox(height: 250, child: Header()),
+          SizedBox(height: 250, child: Header2()),
           Scaffold(
             backgroundColor: Colors.transparent,
             drawer: NavDrawer(),
@@ -60,7 +64,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                     centerTitle: true,
                     title: Text("Ingredients",
                         textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                        style: TextStyle(fontSize: 24)),
+                        style: const TextStyle(fontSize: 24)),
                     // actions: <Widget>[BarcodeReader(mode: 1)],
                   ),
                   drawer: NavDrawer(),
@@ -111,6 +115,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                           Expanded(
                             child: AlphabetScrollPage(
                               ingredient: controller.ingredientList,
+                              className: "ingreadient",
                             ),
                           )
                         ],

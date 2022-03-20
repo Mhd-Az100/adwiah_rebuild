@@ -5,11 +5,11 @@ class SearchBar extends StatelessWidget {
   const SearchBar({
     Key? key,
     required this.searchController,
-    required this.widget,
+    // required this.widget,
   }) : super(key: key);
 
   final TextEditingController searchController;
-  final IngredientsTopBar widget;
+  // final IngredientsTopBar widget;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class SearchBar extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.7,
       child: TextFormField(
         controller: searchController,
-        onChanged: (value) => this.widget.callback(value),
+        // onChanged: (value) => this.widget.callback(value),
         decoration: InputDecoration(
             prefixIcon: const Icon(Icons.search),
             contentPadding:

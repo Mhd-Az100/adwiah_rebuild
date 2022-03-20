@@ -1,24 +1,31 @@
 import 'package:adwiah/Models/brand.dart';
 import 'package:adwiah/Models/ingredient.dart';
-import 'package:adwiah/View/IngredientsScreen/Components/card_list_widget.dart';
+import 'package:adwiah/View/BrandsScreen/brandsbybrandScreen.dart';
+import 'package:adwiah/View/IngredientsScreen/ingred_details_view.dart';
+import 'package:adwiah/Widgets/card_list_widget.dart';
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:speech_bubble/speech_bubble.dart';
 
 class AzItem extends ISuspensionBean {
   final String? title;
   final String? tag;
-  AzItem({this.tag, this.title});
+  final IngredientModel? ingredient;
+  final BrandModel? brands;
+  void Function()? ontapCard;
+  AzItem({this.tag, this.title, this.ingredient, this.brands, this.ontapCard});
 
   @override
   String getSuspensionTag() => tag!;
 }
 
 class AlphabetScrollPage extends StatefulWidget {
-  AlphabetScrollPage({Key? key, this.ingredient, this.brands})
+  AlphabetScrollPage({Key? key, this.ingredient, this.brands, this.className})
       : super(key: key);
   List<IngredientModel>? ingredient = [];
   List<BrandModel>? brands = [];
+  String? className;
   @override
   State<AlphabetScrollPage> createState() => _AlphabetScrollPageState();
 }
@@ -34,12 +41,25 @@ class _AlphabetScrollPageState extends State<AlphabetScrollPage> {
   }
 
   void initList(var items) {
-    itemsaz = widget.ingredient!
-        .map((item) =>
-            AzItem(title: item.name, tag: item.name![0].toUpperCase()))
-        .toList();
-    SuspensionUtil.sortListBySuspensionTag(itemsaz);
-    setState(() {});
+    if (widget.ingredient != null) {
+      itemsaz = widget.ingredient!
+          .map((item) => AzItem(
+              title: item.name,
+              tag: item.name![0].toUpperCase(),
+              ingredient: item))
+          .toList();
+      SuspensionUtil.sortListBySuspensionTag(itemsaz);
+      setState(() {});
+    } else {
+      itemsaz = widget.brands!
+          .map((item) => AzItem(
+              title: item.brandName,
+              tag: item.brandName![0].toUpperCase(),
+              brands: item))
+          .toList();
+      SuspensionUtil.sortListBySuspensionTag(itemsaz);
+      setState(() {});
+    }
   }
 
   @override
@@ -85,6 +105,29 @@ class _AlphabetScrollPageState extends State<AlphabetScrollPage> {
   Widget _buildListItem(AzItem item, dynamic modelData) {
     return CardList(
       item: item,
+      ontap: () {
+        switch (widget.className) {
+          case "ingreadient":
+            {
+              Get.to(IngDetailsScreen(
+                  item.ingredient!.id.toString(), item.title!));
+            }
+            break;
+          case "brands":
+            {
+              Get.to(BrandsByBrandScreen(
+                  item.brands!.brandId.toString(), item.title));
+            }
+            break;
+          case "disease":
+            {
+              // Get.to(Dise(5, item.title!));
+
+            }
+            break;
+          default:
+        }
+      },
     );
   }
 }

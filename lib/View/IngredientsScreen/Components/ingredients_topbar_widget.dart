@@ -119,7 +119,10 @@ class _IngredientsTopBarState extends State<IngredientsTopBar> {
                   ),
                 ),
               ),
-              SearchBar(searchController: searchController, widget: widget),
+              SearchBar(
+                searchController: searchController,
+                // widget: widget
+              ),
             ],
           ),
         ],

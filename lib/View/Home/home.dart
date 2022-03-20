@@ -1,5 +1,5 @@
 import 'package:adwiah/View/BrandsScreen/brands_view.dart';
-import 'package:adwiah/View/DiseaseScreen/disease_view.dart';
+import 'package:adwiah/View/DiseaseScreen/disease_drugs_view.dart';
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
 import 'package:adwiah/View/Home/Components/carsousel_slider_widget.dart';
 import 'package:adwiah/View/IngredientsScreen/ingredient_view.dart';

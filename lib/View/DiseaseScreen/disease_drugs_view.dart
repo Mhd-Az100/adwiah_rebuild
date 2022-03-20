@@ -1,5 +1,3 @@
-import 'package:adwiah/Models/brands_by_id_model.dart';
-import 'package:adwiah/View/BrandsScreen/brands_view_model.dart';
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
 import 'package:adwiah/View/InitialPages/View_Model/initial_app_view_model.dart';
 import 'package:adwiah/Widgets/alphabet_scoll.dart';
@@ -9,10 +7,9 @@ import 'package:adwiah/Widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BrandsScreen extends StatelessWidget {
-  BrandsScreen({Key? key}) : super(key: key);
+class DiseaseScreen extends StatelessWidget {
+  DiseaseScreen({Key? key}) : super(key: key);
   InitialAppController controller = Get.find<InitialAppController>();
-  BrandsController ctrl = Get.put(BrandsController());
   final searchController = TextEditingController();
 
   void search(String v) {}
@@ -39,7 +36,7 @@ class BrandsScreen extends StatelessWidget {
                     elevation: 0,
                     backgroundColor: Colors.transparent,
                     centerTitle: true,
-                    title: Text("Trade Names",
+                    title: Text("[Find Drugs By Disease]",
                         textScaleFactor: MediaQuery.of(context).textScaleFactor,
                         style: const TextStyle(fontSize: 24)),
                     // actions: <Widget>[BarcodeReader(mode: 1)],
@@ -65,7 +62,7 @@ class BrandsScreen extends StatelessWidget {
                           Expanded(
                             child: AlphabetScrollPage(
                               brands: controller.brandList,
-                              className: "brands",
+                              className: "disease",
                             ),
                           )
                         ],
