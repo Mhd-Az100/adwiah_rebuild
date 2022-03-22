@@ -1,6 +1,5 @@
 import 'package:adwiah/Constants/constans.dart';
 import 'package:adwiah/Utils/validator.dart';
-import 'package:adwiah/View/DrawerPages/View_Model/changepassword_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';

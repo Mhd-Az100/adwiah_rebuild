@@ -1,5 +1,5 @@
+import 'package:adwiah/View/DrawerPages/Additional/news_letters_details.dart';
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
-import 'package:adwiah/View/DrawerPages/news_letters_details.dart';
 import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/widgets/bottombar.dart';
 import 'package:adwiah/widgets/header.dart';

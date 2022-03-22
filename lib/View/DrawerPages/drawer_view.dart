@@ -1,20 +1,19 @@
 // ignore_for_file: prefer_const_constructors, prefer_function_declarations_over_variables, prefer_const_literals_to_create_immutables
 
 import 'dart:ui';
-import 'package:adwiah/Models/mediacal_centers.dart';
+
 import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/AuthPages/View_Model/sign_in_view_model.dart';
+import 'package:adwiah/View/DrawerPages/About/about_view.dart';
+import 'package:adwiah/View/DrawerPages/About/adwiah_icons_view.dart';
+import 'package:adwiah/View/DrawerPages/Additional/medician_centers_view.dart';
+import 'package:adwiah/View/DrawerPages/Additional/news_letters_view.dart';
 import 'package:adwiah/View/DrawerPages/Components/listtile_widget.dart';
-import 'package:adwiah/View/DrawerPages/Components/patientprofile_widgets.dart';
 import 'package:adwiah/View/DrawerPages/Components/social_icons_widget.dart';
+import 'package:adwiah/View/DrawerPages/Profile/changepassword_view.dart';
+import 'package:adwiah/View/DrawerPages/Profile/edit_profile_view.dart';
 import 'package:adwiah/View/DrawerPages/View_Model/editprofile_view_model.dart';
-import 'package:adwiah/View/DrawerPages/about_view.dart';
-import 'package:adwiah/View/DrawerPages/adwiah_icons_view.dart';
-import 'package:adwiah/View/DrawerPages/changepassword_view.dart';
 import 'package:adwiah/View/DrawerPages/countries_view.dart';
-import 'package:adwiah/View/DrawerPages/edit_profile_view.dart';
-import 'package:adwiah/View/DrawerPages/medician_centers_view.dart';
-import 'package:adwiah/View/DrawerPages/news_letters_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

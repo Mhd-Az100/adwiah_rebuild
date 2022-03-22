@@ -1,6 +1,7 @@
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
 import 'package:adwiah/View/IngredientsScreen/Components/ingredients_topbar_widget.dart';
 import 'package:adwiah/View/IngredientsScreen/ingred_details_view.dart';
+import 'package:adwiah/View/IngredientsScreen/ingredient_view_model.dart';
 import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
@@ -17,6 +18,8 @@ class IngredientsScreen extends StatefulWidget {
 
 class _IngredientsScreenState extends State<IngredientsScreen> {
   InitialAppController controller = Get.find<InitialAppController>();
+  IngredientController ctrl = Get.put(IngredientController());
+
   @override
   void initState() {
     super.initState();

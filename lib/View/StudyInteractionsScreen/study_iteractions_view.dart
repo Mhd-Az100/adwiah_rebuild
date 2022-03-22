@@ -1,5 +1,4 @@
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
-import 'package:adwiah/View/IngredientsScreen/ingredient_view_model.dart';
 import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/StudyInteractionsScreen/Components/studyTnteractions_topbar.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
@@ -17,8 +16,7 @@ class StudyInteractions extends StatefulWidget {
 
 class _StudyInteractionsState extends State<StudyInteractions> {
   InitialAppController controller = Get.find<InitialAppController>();
-  IngredientController ctrl = Get.put(IngredientController());
-  AlphaBetController ctrl2 = Get.put(AlphaBetController());
+  AlphaBetController ctrl2 = Get.find<AlphaBetController>();
   @override
   void initState() {
     super.initState();

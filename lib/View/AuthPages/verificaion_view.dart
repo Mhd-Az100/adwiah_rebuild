@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:adwiah/View/AuthPages/View_Model/verification_view_model.dart';
-import 'package:adwiah/utils/validator.dart';
 import 'package:adwiah/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

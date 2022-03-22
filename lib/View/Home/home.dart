@@ -2,8 +2,8 @@ import 'package:adwiah/View/BrandsScreen/brands_view.dart';
 import 'package:adwiah/View/DiseaseScreen/disease_drugs_view.dart';
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
 import 'package:adwiah/View/Home/Components/carsousel_slider_widget.dart';
+import 'package:adwiah/View/Home/View_Model/home_view_model.dart';
 import 'package:adwiah/View/IngredientsScreen/ingredient_view.dart';
-import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/StudyInteractionsScreen/study_iteractions_view.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/widgets/header.dart';
@@ -20,9 +20,10 @@ class Home extends StatelessWidget {
     // Get.find<InitialAppController>().getcountries();
     // Get.find<InitialAppController>().getMedicianCenters();
     // Get.find<InitialAppController>().getPosts();
-    Get.find<InitialAppController>().getIngredientList();
-    Get.find<InitialAppController>().getBrandList();
+    // Get.find<InitialAppController>().getIngredientList();
+    // Get.find<InitialAppController>().getBrandList();
     //============================================================ //
+    HomeController controller = Get.put(HomeController());
     var imgList = [
       'assets/images/ingredients.png',
       'assets/images/trade_names.png',

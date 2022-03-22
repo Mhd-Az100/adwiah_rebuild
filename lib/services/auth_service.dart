@@ -1,4 +1,3 @@
-import 'package:adwiah/Models/proffisionslist.dart';
 import 'package:adwiah/View/AuthPages/logIn_register_view.dart';
 import 'package:adwiah/constants/Helper.dart';
 import 'package:adwiah/constants/constans.dart';

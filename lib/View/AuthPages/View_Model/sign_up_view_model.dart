@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_this, non_constant_identifier_names
 
-import 'package:adwiah/Models/proffisionslist.dart';
 import 'package:adwiah/View/AuthPages/verificaion_view.dart';
 import 'package:adwiah/services/auth_service.dart';
 import 'package:bot_toast/bot_toast.dart';
