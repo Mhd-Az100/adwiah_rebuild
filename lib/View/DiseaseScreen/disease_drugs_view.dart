@@ -1,6 +1,6 @@
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
-import 'package:adwiah/View/InitialPages/View_Model/initial_app_view_model.dart';
-import 'package:adwiah/Widgets/alphabet_scoll.dart';
+import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/header.dart';
 import 'package:adwiah/Widgets/search_bar_widget.dart';

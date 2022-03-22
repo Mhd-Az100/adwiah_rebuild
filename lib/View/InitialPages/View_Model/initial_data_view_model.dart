@@ -7,11 +7,12 @@ import 'package:adwiah/Models/mediacal_centers.dart';
 import 'package:adwiah/Models/posts_news.dart';
 import 'package:adwiah/Models/proffisionslist.dart';
 import 'package:adwiah/Services/initialapp_service.dart';
+import 'package:adwiah/View/IngredientsScreen/ingredient_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
 import 'package:get/get.dart';
 
 class InitialAppController extends GetxController {
   final initialService = InitialServices();
-
   List<ProffisionslistModel> proffisionslist = <ProffisionslistModel>[].obs;
   var isEmpty = false.obs;
   getproffisionslist() async {
@@ -94,5 +95,35 @@ class InitialAppController extends GetxController {
   @override
   void onInit() {
     getproffisionslist();
+  }
+
+  var listSearchIng = <IngredientModel>[].obs;
+  var listSearchBrand = <BrandModel>[].obs;
+  search({String? val, required bool brand}) {
+    if (!brand) {
+      if (val == '') {
+        listSearchIng.value = [];
+      } else {
+        listSearchIng.value = ingredientList
+            .where(
+              (x) => x.name.toString().toLowerCase().startsWith(
+                    val!.toLowerCase(),
+                  ),
+            )
+            .toList();
+      }
+    } else {
+      if (val == '') {
+        listSearchBrand.value = [];
+      } else {
+        listSearchBrand.value = brandList
+            .where(
+              (x) => x.brandName.toString().toLowerCase().startsWith(
+                    val!.toLowerCase(),
+                  ),
+            )
+            .toList();
+      }
+    }
   }
 }

@@ -1,29 +1,23 @@
+import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
 import 'package:adwiah/Widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sized_context/sized_context.dart';
 
-typedef callBackWithString = Function(String val);
-typedef callBackWithList = Function();
-
 class IngredientsTopBar extends StatefulWidget {
-  final callBackWithString callback;
-  final callBackWithList sortByAtc;
-  final callBackWithList sortByName;
-  final byNameText, byAtcText;
-
-  IngredientsTopBar(this.callback, this.sortByAtc, this.sortByName,
-      {this.byNameText = 'By Name', this.byAtcText = 'By Atc'});
+  IngredientsTopBar({Key? key}) : super(key: key);
   @override
   _IngredientsTopBarState createState() => _IngredientsTopBarState();
 }
 
 class _IngredientsTopBarState extends State<IngredientsTopBar> {
   final searchController = TextEditingController();
-  var byNameColor = Color(0xff5C376D);
+  var byNameColor = const Color(0xff5C376D);
   var byNameTextColor = Colors.white;
   var byAtcColor = Colors.white;
   var byAtcTextColor = Colors.black;
   var activ = 'name';
+  AlphaBetController ctrl = Get.find<AlphaBetController>();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -49,36 +43,41 @@ class _IngredientsTopBarState extends State<IngredientsTopBar> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        MaterialButton(
-                          minWidth: 130,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: FittedBox(
-                            child: Text(
-                              this.widget.byNameText,
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 16,
-                                color: byNameTextColor,
-                                fontWeight: FontWeight.w700,
+                        GetBuilder<AlphaBetController>(
+                          builder: (c) {
+                            return MaterialButton(
+                              minWidth: 130,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
-                            ),
-                          ),
-                          height: 45 +
-                              ((context.diagonalInches / 6.0).floorToDouble() *
-                                  20),
-                          onPressed: () {
-                            setState(() {
-                              byNameColor = Color(0xff5C376D);
-                              byNameTextColor = Colors.white;
-                              byAtcColor = Colors.white;
-                              byAtcTextColor = Colors.black;
-                              activ = 'name';
-                            });
-                            this.widget.sortByName();
+                              child: FittedBox(
+                                child: Text(
+                                  'By Name',
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16,
+                                    color: byNameTextColor,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                              height: 45 +
+                                  ((context.diagonalInches / 6.0)
+                                          .floorToDouble() *
+                                      20),
+                              onPressed: () {
+                                setState(() {
+                                  byNameColor = const Color(0xff5C376D);
+                                  byNameTextColor = Colors.white;
+                                  byAtcColor = Colors.white;
+                                  byAtcTextColor = Colors.black;
+                                  activ = 'name';
+                                });
+                                ctrl.sortbyname.value = true;
+                              },
+                              color: byNameColor,
+                            );
                           },
-                          color: byNameColor,
                         ),
                         const SizedBox(
                           width: 10,
@@ -90,7 +89,7 @@ class _IngredientsTopBarState extends State<IngredientsTopBar> {
                           ),
                           child: FittedBox(
                             child: Text(
-                              this.widget.byAtcText,
+                              'By Atc',
                               style: TextStyle(
                                 fontFamily: 'Roboto',
                                 fontSize: 16,
@@ -106,11 +105,11 @@ class _IngredientsTopBarState extends State<IngredientsTopBar> {
                             setState(() {
                               byNameColor = Colors.white;
                               byNameTextColor = Colors.black;
-                              byAtcColor = Color(0xff5C376D);
+                              byAtcColor = const Color(0xff5C376D);
                               byAtcTextColor = Colors.white;
                               activ = 'atc';
                             });
-                            this.widget.sortByAtc();
+                            ctrl.sortbyname.value = false;
                           },
                           color: byAtcColor,
                         ),

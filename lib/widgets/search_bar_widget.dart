@@ -1,15 +1,18 @@
-import 'package:adwiah/View/IngredientsScreen/Components/ingredients_topbar_widget.dart';
+import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
+  SearchBar({
     Key? key,
+    this.brand,
     required this.searchController,
     // required this.widget,
   }) : super(key: key);
-
+  bool? brand = false;
   final TextEditingController searchController;
   // final IngredientsTopBar widget;
+  InitialAppController ctrl = Get.find<InitialAppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +20,7 @@ class SearchBar extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.7,
       child: TextFormField(
         controller: searchController,
-        // onChanged: (value) => this.widget.callback(value),
+        onChanged: (value) => ctrl.search(val: value, brand: brand ?? false),
         decoration: InputDecoration(
             prefixIcon: const Icon(Icons.search),
             contentPadding:

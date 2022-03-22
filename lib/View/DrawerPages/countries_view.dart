@@ -1,5 +1,5 @@
 import 'package:adwiah/View/DrawerPages/Components/card_countries_widget.dart';
-import 'package:adwiah/View/InitialPages/View_Model/initial_app_view_model.dart';
+import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

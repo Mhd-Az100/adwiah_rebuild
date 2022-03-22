@@ -1,4 +1,4 @@
-import 'package:adwiah/View/InitialPages/View_Model/initial_app_view_model.dart';
+import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 

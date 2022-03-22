@@ -1,48 +1,16 @@
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
 import 'package:adwiah/View/IngredientsScreen/Components/ingredients_topbar_widget.dart';
 import 'package:adwiah/View/IngredientsScreen/ingred_details_view.dart';
-import 'package:adwiah/View/IngredientsScreen/ingredient_view_model.dart';
-import 'package:adwiah/View/InitialPages/View_Model/initial_app_view_model.dart';
-import 'package:adwiah/Widgets/alphabet_scoll.dart';
+import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
+import 'package:adwiah/Widgets/card_list_search_widget.dart';
 import 'package:adwiah/Widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class IngredientsScreen extends StatefulWidget {
-  @override
-  _IngredientsScreenState createState() => _IngredientsScreenState();
-}
-
-class _IngredientsScreenState extends State<IngredientsScreen> {
+class IngredientsScreen extends StatelessWidget {
   InitialAppController controller = Get.find<InitialAppController>();
-  IngredientController ctrl = Get.put(IngredientController());
-
-  @override
-  void initState() {
-    initData();
-  }
-
-  @override
-  void initData() async {
-    // var version = await storage.read(key: 'inglistversion');
-    // print(version);
-    // if (version != null) {
-    //   var inglist = await storage.read(key: 'ingList');
-    //   print(inglist);
-    //   setState(() {
-    //     data = jsonDecode(inglist);
-    //     subdata = data;
-    //   });
-    // }
-    // sortByName();
-  }
-
-  void search(String v) {}
-
-  void sortByName() {}
-
-  void sortByAtc() {}
 
   @override
   Widget build(BuildContext context) {
@@ -79,8 +47,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                     child: Stack(children: <Widget>[
                       Column(
                         children: <Widget>[
-                          IngredientsTopBar(
-                              this.search, this.sortByAtc, this.sortByName),
+                          IngredientsTopBar(),
                           const SizedBox(
                             height: 6,
                           ),
@@ -112,12 +79,35 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                           const SizedBox(
                             height: 8,
                           ),
-                          Expanded(
-                            child: AlphabetScrollPage(
-                              ingredient: controller.ingredientList,
-                              className: "ingreadient",
-                            ),
-                          )
+                          Obx(() {
+                            return controller.listSearchIng.isNotEmpty
+                                ? Expanded(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount:
+                                            controller.listSearchIng.length,
+                                        itemBuilder: (context, index) {
+                                          return CardListSearch(
+                                              ontap: () {
+                                                Get.to(IngDetailsScreen(
+                                                    controller
+                                                        .listSearchIng[index].id
+                                                        .toString(),
+                                                    controller
+                                                        .listSearchIng[index]
+                                                        .name!));
+                                              },
+                                              ingredient: controller
+                                                  .listSearchIng[index]);
+                                        }),
+                                  )
+                                : Expanded(
+                                    child: AlphabetScrollPage(
+                                      ingredient: controller.ingredientList,
+                                      className: "ingreadient",
+                                    ),
+                                  );
+                          })
                         ],
                       )
                     ]),

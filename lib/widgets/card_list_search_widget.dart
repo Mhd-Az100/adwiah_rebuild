@@ -1,10 +1,13 @@
-import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
+import 'package:adwiah/Models/brand.dart';
+import 'package:adwiah/Models/ingredient.dart';
 import 'package:flutter/material.dart';
 import 'package:sized_context/sized_context.dart';
 
-class CardList extends StatelessWidget {
-  CardList({Key? key, required this.item, this.ontap}) : super(key: key);
-  AzItem item;
+class CardListSearch extends StatelessWidget {
+  CardListSearch({Key? key, this.ingredient, this.ontap, this.brand})
+      : super(key: key);
+  IngredientModel? ingredient;
+  BrandModel? brand;
   void Function()? ontap;
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class CardList extends StatelessWidget {
       child: InkWell(
         onTap: ontap,
         child: Tooltip(
-          message: item.title,
+          message: ingredient != null ? ingredient!.name : brand!.brandName,
           child: Container(
             height: 40 + ((context.diagonalInches / 6.0).floorToDouble() * 20),
             decoration: BoxDecoration(
@@ -25,8 +28,8 @@ class CardList extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
-                  item.ingredient != null
-                      ? item.ingredient!.type == 2
+                  ingredient != null
+                      ? ingredient!.type == 2
                           ? Container(
                               color: Colors.red[900],
                               width: 4,
@@ -41,7 +44,9 @@ class CardList extends StatelessWidget {
                       // activ == 'name'
                       //     ? subdata[i]['Name'].toString()
                       //     :
-                      item.title!,
+                      ingredient != null
+                          ? ingredient!.name!
+                          : brand!.brandName!,
                       overflow: TextOverflow.ellipsis,
                       textScaleFactor: MediaQuery.of(context).textScaleFactor,
                       textAlign: TextAlign.start,
