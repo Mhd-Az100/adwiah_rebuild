@@ -3,14 +3,26 @@ import 'package:adwiah/View/IngredientsScreen/Components/ingredients_topbar_widg
 import 'package:adwiah/View/IngredientsScreen/ingred_details_view.dart';
 import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
+import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/card_list_search_widget.dart';
 import 'package:adwiah/Widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class IngredientsScreen extends StatelessWidget {
+class IngredientsScreen extends StatefulWidget {
+  @override
+  State<IngredientsScreen> createState() => _IngredientsScreenState();
+}
+
+class _IngredientsScreenState extends State<IngredientsScreen> {
   InitialAppController controller = Get.find<InitialAppController>();
+  @override
+  void initState() {
+    super.initState();
+    controller.onsearch.value = false;
+    Get.find<AlphaBetController>().sortbyname.value = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,27 +92,42 @@ class IngredientsScreen extends StatelessWidget {
                             height: 8,
                           ),
                           Obx(() {
-                            return controller.listSearchIng.isNotEmpty
-                                ? Expanded(
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount:
-                                            controller.listSearchIng.length,
-                                        itemBuilder: (context, index) {
-                                          return CardListSearch(
-                                              ontap: () {
-                                                Get.to(IngDetailsScreen(
-                                                    controller
-                                                        .listSearchIng[index].id
-                                                        .toString(),
-                                                    controller
-                                                        .listSearchIng[index]
-                                                        .name!));
-                                              },
-                                              ingredient: controller
-                                                  .listSearchIng[index]);
-                                        }),
-                                  )
+                            return controller.onsearch.value
+                                ? (controller.listSearchIng.isNotEmpty
+                                    ? Expanded(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount:
+                                                controller.listSearchIng.length,
+                                            itemBuilder: (context, index) {
+                                              return CardListSearch(
+                                                  ontap: () {
+                                                    Get.to(IngDetailsScreen(
+                                                        controller
+                                                            .listSearchIng[
+                                                                index]
+                                                            .id
+                                                            .toString(),
+                                                        controller
+                                                            .listSearchIng[
+                                                                index]
+                                                            .name!));
+                                                  },
+                                                  ingredient: controller
+                                                      .listSearchIng[index]);
+                                            }),
+                                      )
+                                    : const Center(
+                                        child: Text(
+                                          'not found !',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontFamily: 'cairo',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ))
                                 : Expanded(
                                     child: AlphabetScrollPage(
                                       ingredient: controller.ingredientList,

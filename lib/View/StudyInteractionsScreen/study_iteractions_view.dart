@@ -10,10 +10,21 @@ import 'package:adwiah/Widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class StudyInteractions extends StatelessWidget {
+class StudyInteractions extends StatefulWidget {
+  @override
+  State<StudyInteractions> createState() => _StudyInteractionsState();
+}
+
+class _StudyInteractionsState extends State<StudyInteractions> {
   InitialAppController controller = Get.find<InitialAppController>();
   IngredientController ctrl = Get.put(IngredientController());
   AlphaBetController ctrl2 = Get.put(AlphaBetController());
+  @override
+  void initState() {
+    super.initState();
+    ctrl2.sortbyname.value = true;
+    controller.onsearch.value = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,19 +95,31 @@ class StudyInteractions extends StatelessWidget {
                           ),
                           Obx(() {
                             if (ctrl2.studyIngorTrand.value) {
-                              return controller.listSearchIng.isNotEmpty
-                                  ? Expanded(
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount:
-                                              controller.listSearchIng.length,
-                                          itemBuilder: (context, index) {
-                                            return CardListSearch(
-                                                ontap: () {},
-                                                ingredient: controller
-                                                    .listSearchIng[index]);
-                                          }),
-                                    )
+                              return controller.onsearch.value
+                                  ? (controller.listSearchIng.isNotEmpty
+                                      ? Expanded(
+                                          child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount: controller
+                                                  .listSearchIng.length,
+                                              itemBuilder: (context, index) {
+                                                return CardListSearch(
+                                                    ontap: () {},
+                                                    ingredient: controller
+                                                        .listSearchIng[index]);
+                                              }),
+                                        )
+                                      : const Center(
+                                          child: Text(
+                                            'not found !',
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontFamily: 'cairo',
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ))
                                   : Expanded(
                                       child: AlphabetScrollPage(
                                         ingredient: controller.ingredientList,
@@ -104,19 +127,32 @@ class StudyInteractions extends StatelessWidget {
                                       ),
                                     );
                             } else {
-                              return controller.listSearchBrand.isNotEmpty
-                                  ? Expanded(
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount:
-                                              controller.listSearchBrand.length,
-                                          itemBuilder: (context, index) {
-                                            return CardListSearch(
-                                                ontap: () {},
-                                                brand: controller
-                                                    .listSearchBrand[index]);
-                                          }),
-                                    )
+                              return controller.onsearch.value
+                                  ? (controller.listSearchBrand.isNotEmpty
+                                      ? Expanded(
+                                          child: ListView.builder(
+                                              shrinkWrap: true,
+                                              itemCount: controller
+                                                  .listSearchBrand.length,
+                                              itemBuilder: (context, index) {
+                                                return CardListSearch(
+                                                    ontap: () {},
+                                                    brand: controller
+                                                            .listSearchBrand[
+                                                        index]);
+                                              }),
+                                        )
+                                      : const Center(
+                                          child: Text(
+                                            'not found !',
+                                            style: TextStyle(
+                                              fontSize: 24,
+                                              fontFamily: 'cairo',
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w700,
+                                            ),
+                                          ),
+                                        ))
                                   : Expanded(
                                       child: AlphabetScrollPage(
                                         brands: controller.brandList,

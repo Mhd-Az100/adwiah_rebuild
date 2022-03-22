@@ -7,8 +7,6 @@ import 'package:adwiah/Models/mediacal_centers.dart';
 import 'package:adwiah/Models/posts_news.dart';
 import 'package:adwiah/Models/proffisionslist.dart';
 import 'package:adwiah/Services/initialapp_service.dart';
-import 'package:adwiah/View/IngredientsScreen/ingredient_view_model.dart';
-import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
 import 'package:get/get.dart';
 
 class InitialAppController extends GetxController {
@@ -99,11 +97,14 @@ class InitialAppController extends GetxController {
 
   var listSearchIng = <IngredientModel>[].obs;
   var listSearchBrand = <BrandModel>[].obs;
+  var onsearch = false.obs;
   search({String? val, required bool brand}) {
     if (!brand) {
       if (val == '') {
+        onsearch.value = false;
         listSearchIng.value = [];
       } else {
+        onsearch.value = true;
         listSearchIng.value = ingredientList
             .where(
               (x) => x.name.toString().toLowerCase().startsWith(
@@ -114,8 +115,10 @@ class InitialAppController extends GetxController {
       }
     } else {
       if (val == '') {
+        onsearch.value = false;
         listSearchBrand.value = [];
       } else {
+        onsearch.value = true;
         listSearchBrand.value = brandList
             .where(
               (x) => x.brandName.toString().toLowerCase().startsWith(

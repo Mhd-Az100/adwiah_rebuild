@@ -1,4 +1,3 @@
-import 'package:adwiah/Models/brands_by_id_model.dart';
 import 'package:adwiah/View/BrandsScreen/brands_view_model.dart';
 import 'package:adwiah/View/BrandsScreen/brandsbybrandScreen.dart';
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
@@ -11,17 +10,22 @@ import 'package:adwiah/Widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BrandsScreen extends StatelessWidget {
+class BrandsScreen extends StatefulWidget {
   BrandsScreen({Key? key}) : super(key: key);
+
+  @override
+  State<BrandsScreen> createState() => _BrandsScreenState();
+}
+
+class _BrandsScreenState extends State<BrandsScreen> {
   InitialAppController controller = Get.find<InitialAppController>();
   BrandsController ctrl = Get.put(BrandsController());
   final searchController = TextEditingController();
-
-  void search(String v) {}
-
-  void sortByName() {}
-
-  void sortByAtc() {}
+  @override
+  void initState() {
+    super.initState();
+    controller.onsearch.value = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,28 +70,42 @@ class BrandsScreen extends StatelessWidget {
                             height: 100,
                           ),
                           Obx(() {
-                            return controller.listSearchBrand.isNotEmpty
-                                ? Expanded(
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount:
-                                            controller.listSearchBrand.length,
-                                        itemBuilder: (context, index) {
-                                          return CardListSearch(
-                                              ontap: () {
-                                                Get.to(BrandsByBrandScreen(
-                                                    controller
-                                                        .listSearchBrand[index]
-                                                        .brandId
-                                                        .toString(),
-                                                    controller
-                                                        .listSearchBrand[index]
-                                                        .brandName!));
-                                              },
-                                              brand: controller
-                                                  .listSearchBrand[index]);
-                                        }),
-                                  )
+                            return controller.onsearch.value
+                                ? (controller.listSearchBrand.isNotEmpty
+                                    ? Expanded(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: controller
+                                                .listSearchBrand.length,
+                                            itemBuilder: (context, index) {
+                                              return CardListSearch(
+                                                  ontap: () {
+                                                    Get.to(BrandsByBrandScreen(
+                                                        controller
+                                                            .listSearchBrand[
+                                                                index]
+                                                            .brandId
+                                                            .toString(),
+                                                        controller
+                                                            .listSearchBrand[
+                                                                index]
+                                                            .brandName!));
+                                                  },
+                                                  brand: controller
+                                                      .listSearchBrand[index]);
+                                            }),
+                                      )
+                                    : const Center(
+                                        child: Text(
+                                          'not found !',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontFamily: 'cairo',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ))
                                 : Expanded(
                                     child: AlphabetScrollPage(
                                       brands: controller.brandList,
