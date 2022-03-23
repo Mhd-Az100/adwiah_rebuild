@@ -107,14 +107,18 @@ class _ChangePasswordState extends State<ChangePassword> {
           ),
         ],
       ),
-      bottomNavigationBar: Container(
-          padding: const EdgeInsets.fromLTRB(15, 0, 15, 9),
-          child: Container(
-              width: 200,
-              height: 60,
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
-              child: BottomControllBar(0))),
+      bottomNavigationBar: Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom != 0 ? false : true,
+        child: Container(
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 9),
+            child: Container(
+                width: 200,
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: BottomControllBar(0))),
+      ),
     );
   }
 }

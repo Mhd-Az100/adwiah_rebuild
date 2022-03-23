@@ -126,16 +126,20 @@ class BrandsByBrandScreen extends StatelessWidget {
                 ),
               ],
             ),
-            bottomNavigationBar: Container(
-                color: const Color(0Xfff5eded),
-                padding: const EdgeInsets.fromLTRB(15, 0, 15, 9),
-                child: Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: BottomControllBar(0))),
+            bottomNavigationBar: Visibility(
+              visible:
+                  MediaQuery.of(context).viewInsets.bottom != 0 ? false : true,
+              child: Container(
+                  color: const Color(0Xfff5eded),
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 9),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.7,
+                      height: 60,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10)),
+                      child: BottomControllBar(0))),
+            ),
           ),
         ],
       ),

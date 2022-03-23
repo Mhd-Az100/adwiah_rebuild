@@ -145,11 +145,15 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                 )
               ],
             ),
-            bottomNavigationBar: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: BottomControllBar(0)),
+            bottomNavigationBar: Visibility(
+              visible:
+                  MediaQuery.of(context).viewInsets.bottom != 0 ? false : true,
+              child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: BottomControllBar(0)),
+            ),
           )
         ],
       ),

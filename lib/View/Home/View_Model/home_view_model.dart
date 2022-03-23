@@ -1,10 +1,12 @@
+import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
+    await Get.find<StorageHelperController>().readToken();
     Get.find<InitialAppController>().geticons();
     Get.find<InitialAppController>().getabouttexts();
     Get.find<InitialAppController>().getcountries();

@@ -1,3 +1,4 @@
+import 'package:adwiah/View/BarcodeScanner/barcodeReader.dart';
 import 'package:adwiah/View/BrandsScreen/brands_view.dart';
 import 'package:adwiah/View/DiseaseScreen/disease_drugs_view.dart';
 import 'package:adwiah/View/DrawerPages/drawer_view.dart';
@@ -14,15 +15,6 @@ class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    //==========after create home controller I will put in========== //
-    // Get.find<InitialAppController>().geticons();
-    // Get.find<InitialAppController>().getabouttexts();
-    // Get.find<InitialAppController>().getcountries();
-    // Get.find<InitialAppController>().getMedicianCenters();
-    // Get.find<InitialAppController>().getPosts();
-    // Get.find<InitialAppController>().getIngredientList();
-    // Get.find<InitialAppController>().getBrandList();
-    //============================================================ //
     HomeController controller = Get.put(HomeController());
     var imgList = [
       'assets/images/ingredients.png',
@@ -72,11 +64,11 @@ class Home extends StatelessWidget {
             Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(50.0),
+                  preferredSize: const Size.fromHeight(50.0),
                   child: AppBar(
                     elevation: 0,
                     backgroundColor: Colors.transparent,
-                    // actions: <Widget>[BarcodeReader(mode: 1)],
+                    actions: [BarcodeReader(mode: 1)],
                   ),
                 ),
                 drawer: NavDrawer(),

@@ -19,7 +19,6 @@ class BrandsScreen extends StatefulWidget {
 
 class _BrandsScreenState extends State<BrandsScreen> {
   InitialAppController controller = Get.find<InitialAppController>();
-  BrandsController ctrl = Get.put(BrandsController());
   final searchController = TextEditingController();
   @override
   void initState() {
@@ -120,11 +119,15 @@ class _BrandsScreenState extends State<BrandsScreen> {
                 )
               ],
             ),
-            bottomNavigationBar: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: BottomControllBar(0)),
+            bottomNavigationBar: Visibility(
+              visible:
+                  MediaQuery.of(context).viewInsets.bottom != 0 ? false : true,
+              child: Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: BottomControllBar(0)),
+            ),
           )
         ],
       ),
