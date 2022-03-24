@@ -1,7 +1,9 @@
 import 'package:adwiah/Models/brand.dart';
+import 'package:adwiah/Models/disease.dart';
 import 'package:adwiah/Models/ingredient.dart';
-import 'package:adwiah/View/BrandsScreen/brandsbybrandScreen.dart';
-import 'package:adwiah/View/IngredientsScreen/ingred_details_view.dart';
+import 'package:adwiah/View/Brands/brands_bybrand.dart';
+import 'package:adwiah/View/Disease/similard_diseases_view.dart';
+import 'package:adwiah/View/Ingredients/ingred_details_view.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
 import 'package:adwiah/Widgets/card_list_widget.dart';
 import 'package:azlistview/azlistview.dart';
@@ -13,9 +15,16 @@ class AzItem extends ISuspensionBean {
   final String? title;
   final String? tag;
   final IngredientModel? ingredient;
+  DiseaseModel? disease;
   final BrandModel? brands;
   void Function()? ontapCard;
-  AzItem({this.tag, this.title, this.ingredient, this.brands, this.ontapCard});
+  AzItem(
+      {this.tag,
+      this.title,
+      this.ingredient,
+      this.brands,
+      this.ontapCard,
+      this.disease});
 
   @override
   String getSuspensionTag() => tag!;
@@ -25,18 +34,24 @@ class AlphabetScrollPage extends StatelessWidget {
   // List<AzItem> itemsaz = [];
   AlphaBetController ctrl = Get.find<AlphaBetController>();
   AlphabetScrollPage(
-      {Key? key, this.ingredient, this.brands, this.className, this.sortbyname})
+      {Key? key,
+      this.ingredient,
+      this.brands,
+      this.className,
+      this.sortbyname,
+      this.disease})
       : super(key: key);
 
   List<IngredientModel>? ingredient = [];
   List<BrandModel>? brands = [];
+  List<DiseaseModel>? disease = [];
   String? className;
   bool? sortbyname;
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      ctrl.initList(ingredient, brands);
+      ctrl.initList(ingredient, brands, disease);
       return AzListView(
         data: ctrl.itemsaz,
         itemCount: ctrl.itemsaz.length,
@@ -97,8 +112,8 @@ class AlphabetScrollPage extends StatelessWidget {
             break;
           case "disease":
             {
-              // Get.to(Dise(5, item.title!));
-
+              Get.to(SimilarDiseasesScreen(
+                  id: item.disease!.id.toString(), name: item.title!));
             }
             break;
           default:

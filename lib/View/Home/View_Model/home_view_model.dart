@@ -1,5 +1,5 @@
 import 'package:adwiah/Utils/storageController.dart';
-import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
+import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -14,5 +14,6 @@ class HomeController extends GetxController {
     Get.find<InitialAppController>().getPosts();
     Get.find<InitialAppController>().getIngredientList();
     Get.find<InitialAppController>().getBrandList();
+    Get.find<InitialAppController>().getDisease();
   }
 }

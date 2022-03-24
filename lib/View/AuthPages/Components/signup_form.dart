@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:adwiah/View/AuthPages/View_Model/sign_up_view_model.dart';
-import 'package:adwiah/View/InitialPages/View_Model/initial_data_view_model.dart';
+import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/utils/getPryvacyAndPolicy.dart';
 import 'package:adwiah/utils/validator.dart';
 import 'package:adwiah/widgets/textfeildpass_widget.dart';

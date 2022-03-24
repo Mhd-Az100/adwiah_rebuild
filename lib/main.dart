@@ -1,5 +1,5 @@
 // import 'package:device_info/device_info.dart';
-import 'package:adwiah/View/InitialPages/splash_screen.dart';
+import 'package:adwiah/View/Initial/splash_screen.dart';
 import 'package:adwiah/binding/binding.dart';
 import 'package:adwiah/constants/Helper.dart';
 import 'package:bot_toast/bot_toast.dart';
