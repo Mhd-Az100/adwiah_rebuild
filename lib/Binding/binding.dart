@@ -5,6 +5,7 @@ import 'package:adwiah/View/Brands/ViewModel/brands_view_model.dart';
 import 'package:adwiah/View/Drawer/View_Model/changepassword_view_model.dart';
 import 'package:adwiah/View/Drawer/View_Model/editprofile_view_model.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
+import 'package:adwiah/View/Map/ViewModel/map_view_model.dart';
 
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
 import 'package:get/get.dart';
@@ -20,5 +21,6 @@ class Bind extends Bindings {
     Get.put(InitialAppController());
     Get.put(AlphaBetController());
     Get.put(BrandsController());
+    Get.put(MapController());
   }
 }

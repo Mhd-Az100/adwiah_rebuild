@@ -2,6 +2,7 @@ import 'package:adwiah/Models/brands_by_id_model.dart';
 import 'package:adwiah/View/Brands/Components/brand_icons.dart';
 import 'package:adwiah/View/Brands/ViewModel/brands_view_model.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
+import 'package:adwiah/Widgets/FloatingButton/custom_floatin_button_view.dart';
 import 'package:adwiah/Widgets/floatbox.dart';
 import 'package:adwiah/widgets/bottombar.dart';
 import 'package:adwiah/widgets/header.dart';
@@ -14,7 +15,7 @@ class BrandDetailsScreen extends StatelessWidget {
   final BrandByIdModel details;
   BrandDetailsScreen(this.details, {Key? key}) : super(key: key);
   bool isExpanded = false;
-  var id = 0;
+  // var id = 0;
   final oCcy = NumberFormat("#,##0", "en_US");
   final dateformat = DateFormat('dd/MM/yyyy');
   BrandsController ctrl = Get.find<BrandsController>();
@@ -481,26 +482,24 @@ class BrandDetailsScreen extends StatelessWidget {
                       child: BottomControllBar(0))),
             ),
           ),
-
-          // Positioned(
-          //   bottom: 13,
-          //   left: MediaQuery.of(context).size.width -
-          //       (MediaQuery.of(context).size.width * 0.4 + 40),
-          //   child: Container(
-          //     width: MediaQuery.of(context).size.width * 0.4,
-          //     child: CustomFloatingButton(
-          //       details: this.details,
-          //       mode: 1,
-          //       id: id,
-          //       onPressed: () {
-          //         setState(() {
-          //           isExpanded = !isExpanded;
-          //         });
-          //         print(isExpanded);
-          //       },
-          //     ),
-          //   ),
-          // ),
+          Positioned(
+            bottom: 13,
+            left: MediaQuery.of(context).size.width -
+                (MediaQuery.of(context).size.width * 0.4 + 40),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: CustomFloatingButton(
+                details: details,
+                mode: 1,
+                onPressed: () {
+                  // setState(() {
+                  //   isExpanded = !isExpanded;
+                  // });
+                  print(isExpanded);
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

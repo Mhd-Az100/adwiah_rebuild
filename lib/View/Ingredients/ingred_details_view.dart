@@ -1,6 +1,7 @@
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/Ingredients/ViewModel/ingredient_view_model.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
+import 'package:adwiah/Widgets/FloatingButton/custom_floatin_button_view.dart';
 import 'package:adwiah/Widgets/floatbox.dart';
 import 'package:adwiah/Widgets/header.dart';
 import 'package:flutter/material.dart';
@@ -280,26 +281,25 @@ class IngDetailsScreen extends StatelessWidget {
                       child: BottomControllBar(0))),
             ),
           ),
-          // fabFade(),
-          // Positioned(
-          //   bottom: 13,
-          //   left: MediaQuery.of(context).size.width -
-          //       (MediaQuery.of(context).size.width * 0.4 + 40),
-          // child: Container(
-          //   width: MediaQuery.of(context).size.width * 0.4,
-          //   child: CustomFloatingButton(
-          //     id: this.widget.id,
-          //     name: this.widget.name,
-          //     onPressed: () {
-          //       setState(() {
-          //         isExpanded = !isExpanded;
-          //       });
-          //       print(isExpanded);
-          //     },
-          //     mode: 0,
-          //   ),
-          // ),
-          // ),
+          Positioned(
+            bottom: 13,
+            left: MediaQuery.of(context).size.width -
+                (MediaQuery.of(context).size.width * 0.4 + 40),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: CustomFloatingButton(
+                id: id,
+                name: name,
+                onPressed: () {
+                  // setState(() {
+                  //   isExpanded = !isExpanded;
+                  // });
+                  // print(isExpanded);
+                },
+                mode: 0,
+              ),
+            ),
+          ),
         ],
       ),
     );

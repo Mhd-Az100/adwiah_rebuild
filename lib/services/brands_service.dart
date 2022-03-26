@@ -42,4 +42,32 @@ class BrandService {
       return false;
     }
   }
+
+  Future getAlternitveBrands(
+    String id,
+    String route,
+    String compositionID,
+    String authorizationID,
+  ) async {
+    try {
+      List<BrandByIdModel> alternitveBrands = [];
+
+      var response = await _network.get(
+          url:
+              'alternative_brands/$id/$route/$compositionID/$authorizationID/${soragectrl.country_id}',
+          token: soragectrl.Token);
+      if (response != null) {
+        for (var item in response) {
+          alternitveBrands.add(BrandByIdModel.fromJson(item));
+        }
+        return alternitveBrands;
+      } else {
+        var error = response['message'];
+        showToast(error);
+        return [];
+      }
+    } catch (e) {
+      return <BrandByIdModel>[];
+    }
+  }
 }
