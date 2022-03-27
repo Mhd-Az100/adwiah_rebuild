@@ -1,5 +1,5 @@
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
-import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

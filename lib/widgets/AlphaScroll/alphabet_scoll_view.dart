@@ -4,7 +4,8 @@ import 'package:adwiah/Models/ingredient.dart';
 import 'package:adwiah/View/Brands/brands_bybrand.dart';
 import 'package:adwiah/View/Disease/similard_diseases_view.dart';
 import 'package:adwiah/View/Ingredients/ingred_details_view.dart';
-import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
+import 'package:adwiah/View/StudyInteractions/ViewModel/interactions_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
 import 'package:adwiah/Widgets/card_list_widget.dart';
 import 'package:azlistview/azlistview.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,8 @@ class AzItem extends ISuspensionBean {
 class AlphabetScrollPage extends StatelessWidget {
   // List<AzItem> itemsaz = [];
   AlphaBetController ctrl = Get.find<AlphaBetController>();
+  StudyInteractionsController ctrlstudy =
+      Get.find<StudyInteractionsController>();
   AlphabetScrollPage(
       {Key? key,
       this.ingredient,
@@ -115,6 +118,27 @@ class AlphabetScrollPage extends StatelessWidget {
               Get.to(SimilarDiseasesScreen(
                   id: item.disease!.id.toString(), name: item.title!));
             }
+
+            break;
+          case "study_ing":
+            {
+              var temping = InteractioObject(
+                  name: item.ingredient!.name,
+                  id: item.ingredient!.id.toString());
+
+              ctrlstudy.setObjects(temping: temping);
+            }
+
+            break;
+          case "study_brand":
+            {
+              var tempbrand = InteractioObject(
+                  name: item.brands!.brandName,
+                  id: item.brands!.brandId.toString());
+
+              ctrlstudy.setObjects(tempbrand: tempbrand);
+            }
+
             break;
           default:
         }

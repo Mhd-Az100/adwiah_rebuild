@@ -4,7 +4,7 @@ import 'package:adwiah/View/Ingredients/ingred_details_view.dart';
 import 'package:adwiah/View/Ingredients/ViewModel/ingredient_view_model.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
-import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/card_list_search_widget.dart';
 import 'package:adwiah/Widgets/header.dart';

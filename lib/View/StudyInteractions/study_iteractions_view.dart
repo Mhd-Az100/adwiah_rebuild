@@ -9,7 +9,7 @@ import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/StudyInteractions/Components/studyTnteractions_topbar.dart';
 import 'package:adwiah/View/StudyInteractions/ViewModel/interactions_view_model.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
-import 'package:adwiah/Widgets/AlphaScroll/alphabet_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/card_list_search_widget.dart';
 import 'package:adwiah/Widgets/header.dart';
@@ -553,6 +553,19 @@ class StudyInteractions extends StatelessWidget {
                               )),
                             ),
                           ),
+                          GetX<StudyInteractionsController>(
+                            builder: (c) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                child: SizedBox(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Wrap(
+                                      children: c.showSelectedObjects(),
+                                    )),
+                              );
+                            },
+                          ),
                           const SizedBox(
                             height: 8,
                           ),
@@ -586,7 +599,7 @@ class StudyInteractions extends StatelessWidget {
                                   : Expanded(
                                       child: AlphabetScrollPage(
                                         ingredient: initctrl.ingredientList,
-                                        className: "ingreadient",
+                                        className: "study_ing",
                                       ),
                                     );
                             } else {
@@ -619,7 +632,7 @@ class StudyInteractions extends StatelessWidget {
                                   : Expanded(
                                       child: AlphabetScrollPage(
                                         brands: initctrl.brandList,
-                                        className: "ingreadient",
+                                        className: "study_brand",
                                       ),
                                     );
                             }

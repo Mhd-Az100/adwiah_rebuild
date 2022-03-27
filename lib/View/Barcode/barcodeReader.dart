@@ -17,7 +17,7 @@ class BarcodeReader extends StatelessWidget {
       final data = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.BARCODE);
       print(data);
-      if (data != null) {
+      if (data != null && data != '-1') {
         ctrl.getbrandByBarc(data);
         Get.to(() => BrandByBarcode(data));
       }
