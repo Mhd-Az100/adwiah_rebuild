@@ -40,8 +40,11 @@ class EditProfileController extends GetxController {
           phoneNumber: this.phoneNumberController.text,
         );
         if (response) {
-          soragectrl.saveinfouser(f_nameController.text, l_nameController.text,
-              proffision_nameController.text, phoneNumberController.text);
+          soragectrl.saveinfouser(
+              f_name: f_nameController.text,
+              l_name: l_nameController.text,
+              proffision: proffision_nameController.text,
+              phone: phoneNumberController.text);
           soragectrl.readinfouser();
           Get.off(Home());
         }
@@ -65,8 +68,9 @@ class EditProfileController extends GetxController {
         filenull.value = false;
         file = File(pickedFile.path);
         BotToast.showLoading();
-        await _drawerService.uploadImg(img: pickedFile);
+        var res = await _drawerService.uploadImg(img: pickedFile);
         Get.back();
+        soragectrl.saveinfouser(img: res);
         update();
         return;
       } else {

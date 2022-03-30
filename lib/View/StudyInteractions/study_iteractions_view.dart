@@ -1,15 +1,16 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:developer';
 import 'dart:ui';
 
-import 'package:adwiah/Constants/constans.dart';
 import 'package:adwiah/Models/study_interactions.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/StudyInteractions/Components/studyTnteractions_topbar.dart';
 import 'package:adwiah/View/StudyInteractions/ViewModel/interactions_view_model.dart';
-import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
 import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
+import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
+import 'package:adwiah/Widgets/FloatingButton/dosage_detaild_box_view.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/card_list_search_widget.dart';
 import 'package:adwiah/Widgets/header.dart';
@@ -21,17 +22,28 @@ class InteractioObject {
   InteractioObject(this.name, this.id, {this.rout = ''});
 }
 
-class StudyInteractions extends StatelessWidget {
+class StudyInteractions extends StatefulWidget {
+  @override
+  State<StudyInteractions> createState() => _StudyInteractionsState();
+}
+
+class _StudyInteractionsState extends State<StudyInteractions> {
   InitialAppController initctrl = Get.find<InitialAppController>();
+
   AlphaBetController alphactrl = Get.find<AlphaBetController>();
+
   StudyInteractionsController studyctrl =
-      Get.put(StudyInteractionsController());
-  Map<InteractioObject, bool> selectedIngsids = {};
-  Map<InteractioObject, bool> selectedBrands = {};
+      Get.find<StudyInteractionsController>();
+  @override
+  void initState() {
+    super.initState();
+    initctrl.onsearch.value = false;
+  }
+
   @override
   void show({List<StudyInteractionsModel>? res, context}) async {
     List<Widget> text = [];
-    if (res != null) {
+    if (res != null || res!.length == 0) {
       for (var i = 0; i < res.length; i += 1) {
         if (res[i].note == null || res[i].note == "") {
           (res[i].ingBWithName != null && res[i].ingBWithName != '') ||
@@ -371,6 +383,7 @@ class StudyInteractions extends StatelessWidget {
                   fontSize: 17,
                   fontWeight: FontWeight.w400))));
     }
+
     Navigator.pop(context);
     showDialog<void>(
       context: context,
@@ -405,7 +418,13 @@ class StudyInteractions extends StatelessWidget {
                               }),
                         ],
                       ),
-                      // Expanded(child: DosageDetails(text)),
+                      Expanded(
+                          child: DosageDetails(text.isNotEmpty
+                              ? text
+                              : [
+                                  Text(
+                                      'No Interactions available between chosen drugs')
+                                ])),
                     ],
                   ),
                 ),
@@ -420,8 +439,8 @@ class StudyInteractions extends StatelessWidget {
   void getStudyInteractions(context) async {
     if (alphactrl.studyIngorTrand.value) {
       String ids = '';
-      selectedIngsids.forEach((key, value) {
-        if (selectedIngsids[key]!) {
+      studyctrl.selectedIng.forEach((key, value) {
+        if (studyctrl.selectedIng[key]!) {
           ids += key.id.toString() + ',';
         }
       });
@@ -452,8 +471,8 @@ class StudyInteractions extends StatelessWidget {
       show(res: studyctrl.studyIng, context: context);
     } else {
       String ids = '', routes = '';
-      selectedBrands.forEach((key, value) {
-        if (selectedBrands[key]!) {
+      studyctrl.selectedBrand.forEach((key, value) {
+        if (studyctrl.selectedBrand[key]!) {
           ids += key.id.toString() + ',';
           routes += key.rout.toString() + ';';
         }
@@ -524,7 +543,8 @@ class StudyInteractions extends StatelessWidget {
                     child: Stack(children: <Widget>[
                       Column(
                         children: <Widget>[
-                          StudyInteractionsTopBar(),
+                          StudyInteractionsTopBar(
+                              onpressed: () => getStudyInteractions(context)),
                           const SizedBox(
                             height: 6,
                           ),

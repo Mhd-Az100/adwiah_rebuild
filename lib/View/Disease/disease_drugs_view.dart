@@ -1,19 +1,34 @@
 import 'package:adwiah/View/Barcode/barcodeReader.dart';
 import 'package:adwiah/View/Disease/ViewModel/disease_view_model.dart';
+import 'package:adwiah/View/Disease/similard_diseases_view.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
+import 'package:adwiah/Widgets/card_list_search_widget.dart';
 import 'package:adwiah/Widgets/header.dart';
 import 'package:adwiah/Widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DiseaseScreen extends StatelessWidget {
+class DiseaseScreen extends StatefulWidget {
   DiseaseScreen({Key? key}) : super(key: key);
+
+  @override
+  State<DiseaseScreen> createState() => _DiseaseScreenState();
+}
+
+class _DiseaseScreenState extends State<DiseaseScreen> {
   InitialAppController controller = Get.find<InitialAppController>();
+
   DiseaseController ctrl = Get.put(DiseaseController());
+
   final searchController = TextEditingController();
+  @override
+  void initState() {
+    controller.onsearch.value = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +67,7 @@ class DiseaseScreen extends StatelessWidget {
                         children: [
                           SearchBar(
                             searchController: searchController,
+                            disease: true,
                           ),
                           const SizedBox(
                             height: 10,
@@ -121,12 +137,51 @@ class DiseaseScreen extends StatelessWidget {
                           const SizedBox(
                             height: 50,
                           ),
-                          Expanded(
-                            child: AlphabetScrollPage(
-                              disease: controller.diseaselist,
-                              className: "disease",
-                            ),
-                          )
+                          Obx(() {
+                            return controller.onsearch.value
+                                ? (controller.listSearchDisease.isNotEmpty
+                                    ? Expanded(
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: controller
+                                                .listSearchDisease.length,
+                                            itemBuilder: (context, index) {
+                                              return CardListSearch(
+                                                  ontap: () {
+                                                    Get.to(SimilarDiseasesScreen(
+                                                        id: controller
+                                                            .listSearchDisease[
+                                                                index]
+                                                            .id
+                                                            .toString(),
+                                                        name: controller
+                                                            .listSearchDisease[
+                                                                index]
+                                                            .valEn!));
+                                                  },
+                                                  disease: controller
+                                                          .listSearchDisease[
+                                                      index]);
+                                            }),
+                                      )
+                                    : const Center(
+                                        child: Text(
+                                          'not found !',
+                                          style: TextStyle(
+                                            fontSize: 24,
+                                            fontFamily: 'cairo',
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ))
+                                : Expanded(
+                                    child: AlphabetScrollPage(
+                                      disease: controller.diseaselist,
+                                      className: "disease",
+                                    ),
+                                  );
+                          })
                         ],
                       )
                     ]),

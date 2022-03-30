@@ -6,6 +6,7 @@ import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/AuthPages/View_Model/sign_in_view_model.dart';
 import 'package:adwiah/View/Drawer/About/about_view.dart';
 import 'package:adwiah/View/Drawer/About/adwiah_icons_view.dart';
+import 'package:adwiah/View/Drawer/About/demo_Screen.dart';
 import 'package:adwiah/View/Drawer/Additional/medician_centers_view.dart';
 import 'package:adwiah/View/Drawer/Additional/news_letters_view.dart';
 import 'package:adwiah/View/Drawer/Components/listtile_widget.dart';
@@ -73,7 +74,7 @@ class NavDrawer extends StatelessWidget {
                                 ? CircleAvatar(
                                     minRadius: 70,
                                     backgroundImage:
-                                        AssetImage('assets/icons/6.png'),
+                                        NetworkImage(storagectrl.img),
                                     backgroundColor: Colors.grey[900])
                                 : CircleAvatar(
                                     minRadius: 70,
@@ -281,7 +282,9 @@ class NavDrawer extends StatelessWidget {
                         ),
                         ListTileDrawer(
                           text: 'Demo',
-                          ontap: () {},
+                          ontap: () {
+                            Get.to(() => DemoScreen());
+                          },
                         ),
                       ],
                     ),

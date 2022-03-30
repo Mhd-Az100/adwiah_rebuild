@@ -3,17 +3,9 @@ import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-typedef callBackWithString = Function(String val);
-typedef callBackWithList = Function();
-
 class StudyInteractionsTopBar extends StatefulWidget {
-  // final callBackWithString callback;
-  // final callBackWithList sortByAtc;
-  // final callBackWithList sortByName;
-  // final callBackWithList studyInteractions;
-  StudyInteractionsTopBar(
-      // this.callback, this.sortByAtc, this.sortByName, this.studyInteractions,
-      );
+  void Function()? onpressed;
+  StudyInteractionsTopBar({this.onpressed, Key? key}) : super(key: key);
   @override
   _StudyInteractionsTopBarState createState() =>
       _StudyInteractionsTopBarState();
@@ -21,12 +13,17 @@ class StudyInteractionsTopBar extends StatefulWidget {
 
 class _StudyInteractionsTopBarState extends State<StudyInteractionsTopBar> {
   final searchController = TextEditingController();
-  var byNameColor = Color(0xff5C376D);
+  var byNameColor = const Color(0xff5C376D);
   var byNameTextColor = Colors.white;
   var byAtcColor = Colors.white;
   var byAtcTextColor = Colors.black;
   AlphaBetController ctrl = Get.find<AlphaBetController>();
   InitialAppController controller = Get.find<InitialAppController>();
+  @override
+  void initState() {
+    super.initState();
+    ctrl.studyIngorTrand.value = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -126,7 +123,9 @@ class _StudyInteractionsTopBarState extends State<StudyInteractionsTopBar> {
                     controller: searchController,
                     onChanged: (value) {
                       controller.search(
-                          val: value, brand: !ctrl.studyIngorTrand.value);
+                        val: value,
+                        brand: !ctrl.studyIngorTrand.value,
+                      );
                     },
                     decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
@@ -153,9 +152,7 @@ class _StudyInteractionsTopBarState extends State<StudyInteractionsTopBar> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7),
                     ),
-                    onPressed: () {
-                      // this.widget.studyInteractions();
-                    },
+                    onPressed: widget.onpressed,
                     color: const Color(0xff5C376D),
                     child: const Text(
                       'Study',

@@ -6,12 +6,13 @@ class SearchBar extends StatelessWidget {
   SearchBar({
     Key? key,
     this.brand,
+    this.disease,
     required this.searchController,
     // required this.widget,
   }) : super(key: key);
   bool? brand = false;
+  bool? disease = false;
   final TextEditingController searchController;
-  // final IngredientsTopBar widget;
   InitialAppController ctrl = Get.find<InitialAppController>();
 
   @override
@@ -20,7 +21,8 @@ class SearchBar extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.7,
       child: TextFormField(
         controller: searchController,
-        onChanged: (value) => ctrl.search(val: value, brand: brand ?? false),
+        onChanged: (value) => ctrl.search(
+            val: value, brand: brand ?? false, disease: disease ?? false),
         decoration: InputDecoration(
             prefixIcon: const Icon(Icons.search),
             contentPadding:

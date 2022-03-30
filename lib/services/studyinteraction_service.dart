@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:adwiah/Models/study_interactions.dart';
 import 'package:adwiah/Services/network_service/network_service.dart';
 import 'package:adwiah/Utils/storageController.dart';
@@ -36,6 +38,7 @@ class StudyInteractionService {
       for (var item in response) {
         studyBrand.add(StudyInteractionsModel.fromJson(item));
       }
+      inspect(studyBrand);
       return studyBrand;
     } else {
       var error = response['message'];

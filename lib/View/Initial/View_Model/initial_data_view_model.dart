@@ -112,35 +112,52 @@ class InitialAppController extends GetxController {
 
   var listSearchIng = <IngredientModel>[].obs;
   var listSearchBrand = <BrandModel>[].obs;
+  var listSearchDisease = <DiseaseModel>[].obs;
   var onsearch = false.obs;
-  search({String? val, required bool brand}) {
-    if (!brand) {
+  search({String? val, required bool brand, bool? disease}) {
+    if (disease!) {
       if (val == '') {
         onsearch.value = false;
-        listSearchIng.value = [];
+        listSearchDisease.value = [];
       } else {
         onsearch.value = true;
-        listSearchIng.value = ingredientList
+        listSearchDisease.value = diseaselist
             .where(
-              (x) => x.name.toString().toLowerCase().startsWith(
+              (x) => x.valEn.toString().toLowerCase().startsWith(
                     val!.toLowerCase(),
                   ),
             )
             .toList();
       }
     } else {
-      if (val == '') {
-        onsearch.value = false;
-        listSearchBrand.value = [];
+      if (!brand) {
+        if (val == '') {
+          onsearch.value = false;
+          listSearchIng.value = [];
+        } else {
+          onsearch.value = true;
+          listSearchIng.value = ingredientList
+              .where(
+                (x) => x.name.toString().toLowerCase().startsWith(
+                      val!.toLowerCase(),
+                    ),
+              )
+              .toList();
+        }
       } else {
-        onsearch.value = true;
-        listSearchBrand.value = brandList
-            .where(
-              (x) => x.brandName.toString().toLowerCase().startsWith(
-                    val!.toLowerCase(),
-                  ),
-            )
-            .toList();
+        if (val == '') {
+          onsearch.value = false;
+          listSearchBrand.value = [];
+        } else {
+          onsearch.value = true;
+          listSearchBrand.value = brandList
+              .where(
+                (x) => x.brandName.toString().toLowerCase().startsWith(
+                      val!.toLowerCase(),
+                    ),
+              )
+              .toList();
+        }
       }
     }
   }

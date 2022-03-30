@@ -1,13 +1,16 @@
 import 'package:adwiah/Models/brand.dart';
+import 'package:adwiah/Models/disease.dart';
 import 'package:adwiah/Models/ingredient.dart';
 import 'package:flutter/material.dart';
 import 'package:sized_context/sized_context.dart';
 
 class CardListSearch extends StatelessWidget {
-  CardListSearch({Key? key, this.ingredient, this.ontap, this.brand})
+  CardListSearch(
+      {Key? key, this.ingredient, this.ontap, this.brand, this.disease})
       : super(key: key);
   IngredientModel? ingredient;
   BrandModel? brand;
+  DiseaseModel? disease;
   void Function()? ontap;
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,8 @@ class CardListSearch extends StatelessWidget {
       child: InkWell(
         onTap: ontap,
         child: Tooltip(
-          message: ingredient != null ? ingredient!.name : brand!.brandName,
+          message: disease!.valEn ??
+              (ingredient != null ? ingredient!.name : brand!.brandName),
           child: Container(
             height: 40 + ((context.diagonalInches / 6.0).floorToDouble() * 20),
             decoration: BoxDecoration(
@@ -26,42 +30,81 @@ class CardListSearch extends StatelessWidget {
             ),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  ingredient != null
-                      ? ingredient!.type == 2
-                          ? Container(
-                              color: Colors.red[900],
-                              width: 4,
-                            )
-                          : const SizedBox()
-                      : const SizedBox(),
-                  const SizedBox(
-                    width: 3,
-                  ),
-                  Flexible(
-                    child: Text(
-                      // activ == 'name'
-                      //     ? subdata[i]['Name'].toString()
-                      //     :
-                      ingredient != null
-                          ? ingredient!.name!
-                          : brand!.brandName!,
-                      overflow: TextOverflow.ellipsis,
-                      textScaleFactor: MediaQuery.of(context).textScaleFactor,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                          color:
-                              // subdata[i]['Type'] == 2
-                              //     ? Colors.red[900]:
-                              Colors.black54,
-                          fontFamily: 'Roboto',
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold),
+              child: disease != null
+                  ? Row(
+                      children: [
+                        ingredient != null
+                            ? ingredient!.type == 2
+                                ? Container(
+                                    color: Colors.red[900],
+                                    width: 4,
+                                  )
+                                : const SizedBox()
+                            : const SizedBox(),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Flexible(
+                          child: Text(
+                            // activ == 'name'
+                            //     ? subdata[i]['Name'].toString()
+                            //     :
+                            disease!.valEn ??
+                                (ingredient != null
+                                    ? ingredient!.name!
+                                    : brand!.brandName!),
+
+                            overflow: TextOverflow.ellipsis,
+                            textScaleFactor:
+                                MediaQuery.of(context).textScaleFactor,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                                color:
+                                    // subdata[i]['Type'] == 2
+                                    //     ? Colors.red[900]:
+                                    Colors.black54,
+                                fontFamily: 'Roboto',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    )
+                  : Row(
+                      children: [
+                        ingredient != null
+                            ? ingredient!.type == 2
+                                ? Container(
+                                    color: Colors.red[900],
+                                    width: 4,
+                                  )
+                                : const SizedBox()
+                            : const SizedBox(),
+                        const SizedBox(
+                          width: 3,
+                        ),
+                        Flexible(
+                          child: Text(
+                            // activ == 'name'
+                            //     ? subdata[i]['Name'].toString()
+                            //     :
+                            disease!.valEn!,
+                            overflow: TextOverflow.ellipsis,
+                            textScaleFactor:
+                                MediaQuery.of(context).textScaleFactor,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                                color:
+                                    // subdata[i]['Type'] == 2
+                                    //     ? Colors.red[900]:
+                                    Colors.black54,
+                                fontFamily: 'Roboto',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
             ),
           ),
         ),

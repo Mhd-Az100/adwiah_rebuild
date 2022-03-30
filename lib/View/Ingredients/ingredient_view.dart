@@ -19,11 +19,14 @@ class IngredientsScreen extends StatefulWidget {
 class _IngredientsScreenState extends State<IngredientsScreen> {
   InitialAppController controller = Get.find<InitialAppController>();
   IngredientController ctrl = Get.put(IngredientController());
+  AlphaBetController ctrlalpha = Get.find<AlphaBetController>();
 
   @override
   void initState() {
     super.initState();
     controller.onsearch.value = false;
+    ctrlalpha.studyIngorTrand.value = true;
+
     Get.find<AlphaBetController>().sortbyname.value = true;
   }
 

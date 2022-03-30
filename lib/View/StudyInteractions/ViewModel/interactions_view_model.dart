@@ -15,6 +15,7 @@ class StudyInteractionsController extends GetxController {
   // var loadther = false.obs;
   var loadbrandByid = false.obs;
   getStudyIng(String id) async {
+    studyIng = [];
     try {
       loadbrandByid.value = false;
       studyIng = await studyInteractionService.getstudyIng(id);
@@ -25,6 +26,7 @@ class StudyInteractionsController extends GetxController {
   }
 
   getStudyBrand(String id, String routes) async {
+    studyBrand = [];
     try {
       studyBrand = await studyInteractionService.getstudyBrand(id, routes);
     } catch (e) {

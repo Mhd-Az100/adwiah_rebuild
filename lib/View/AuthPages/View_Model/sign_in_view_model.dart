@@ -39,8 +39,12 @@ class SignInController extends GetxController {
           if (loginData!.success!) {
             soragectrl.saveToken(loginData!.userGuidId!);
 
-            soragectrl.saveinfouser(loginData!.fName!, loginData!.lName!,
-                loginData!.mob!, loginData!.proffisionName!);
+            soragectrl.saveinfouser(
+                f_name: loginData!.fName!,
+                l_name: loginData!.lName!,
+                phone: loginData!.mob!,
+                proffision: loginData!.proffisionName!,
+                img: loginData!.imageUrl);
             save.value
                 ? soragectrl.saveaccount(
                     emailController.text, passwordController.text)

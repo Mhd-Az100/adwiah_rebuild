@@ -12,6 +12,7 @@ class StorageHelperController extends GetxController {
   var l_name = ''.obs;
   String phone = '';
   String proffision = '';
+  String img = '';
   String country_id = '12';
   saveaccount(String email, String password) async {
     await storage.write('email', email);
@@ -24,8 +25,13 @@ class StorageHelperController extends GetxController {
   }
 
   saveinfouser(
-      String f_name, String l_name, String phone, String proffision) async {
+      {String? f_name,
+      String? l_name,
+      String? phone,
+      String? proffision,
+      String? img}) async {
     await storage.write('f_name', f_name);
+    await storage.write('img', img);
     await storage.write('l_name', l_name);
     await storage.write('phone', phone);
     await storage.write('proffision', proffision);
@@ -36,6 +42,7 @@ class StorageHelperController extends GetxController {
     l_name.value = storage.read('l_name') ?? '';
     phone = storage.read('phone') ?? '';
     proffision = storage.read('proffision') ?? '';
+    img = storage.read('img') ?? '';
   }
 
   saveToken(String token) async {
@@ -53,6 +60,8 @@ class StorageHelperController extends GetxController {
   readCountryId() {
     country_id = storage.read('country_id') ?? '12';
   }
+
+//======================================================//
 
   @override
   void onInit() {

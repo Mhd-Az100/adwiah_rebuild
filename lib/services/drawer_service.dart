@@ -53,7 +53,7 @@ class DrawerService {
         token: soragectrl.Token);
 
     if (response != null) {
-      return true;
+      return response['img'];
     } else {
       var error = response['message'];
       showToast(error);

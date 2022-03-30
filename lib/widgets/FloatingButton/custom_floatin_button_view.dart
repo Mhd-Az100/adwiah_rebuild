@@ -151,7 +151,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 15,
-                      color: const Color(0xffffffff),
+                      color: Colors.black,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -202,7 +202,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 15,
-                      color: const Color(0xffffffff),
+                      color: Colors.black,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -267,7 +267,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 15,
-                      color: const Color(0xffffffff),
+                      color: Colors.black,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -339,7 +339,7 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
                     style: TextStyle(
                       fontFamily: 'Roboto',
                       fontSize: 15,
-                      color: const Color(0xffffffff),
+                      color: Colors.black,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
