@@ -1080,29 +1080,27 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                                   ),
                                 ),
                               ),
-                        Container(
-                          child: ListView.builder(
-                              itemCount: _drugsNameAddList.length,
-                              primary: true,
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                return Container(
-                                    height: 50,
-                                    padding: EdgeInsets.all(5),
-                                    child: ListTile(
-                                      title: Text(
-                                        _drugsNameAddList[index],
-                                        style:
-                                            TextStyle(color: Color(0xff5C376D)),
-                                      ),
-                                      leading: Icon(
-                                        Icons.check,
-                                        color: Colors.green,
-                                      ),
-                                    ));
-                              }),
-                        ),
+                        ListView.builder(
+                            itemCount: _drugsNameAddList.length,
+                            primary: true,
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                  height: 50,
+                                  padding: EdgeInsets.all(5),
+                                  child: ListTile(
+                                    title: Text(
+                                      _drugsNameAddList[index],
+                                      style:
+                                          TextStyle(color: Color(0xff5C376D)),
+                                    ),
+                                    leading: Icon(
+                                      Icons.check,
+                                      color: Colors.green,
+                                    ),
+                                  ));
+                            }),
                         SizedBox(
                           height: 10,
                         ),

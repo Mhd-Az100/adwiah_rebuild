@@ -28,27 +28,20 @@ class _PatientProfileNotificationState
     try {
       _notificationList.clear();
       _notifyList.clear();
-      var data = await DatabaseHelper.instance!.getAllNotification() ?? [];
-      // List<NotificationModel> _list = data;
+      var data = await DatabaseHelper.instance?.getAllNotification() ?? [];
+
       for (int i = 0; i < data.length; i++) {
-        // String dateAndTime =
-        //     data[i].date!.substring(0, 10) + " " + data[i].time;
-        // DateTime dateTime = DateTime.parse(dateAndTime);
-        // print("data time  : $dateTime");
-        // dateTime.isAfter(todayDate)
-        //     ? _notifyList.add(NotifyModel(data[i].id, dateTime, data[i].title,
-        //         data[i].body, data[i].status))
-        //     : print("no add date ==========");
+        String dateAndTime =
+            data[i].date!.substring(0, 10) + " " + data[i].time!;
+        DateTime dateTime = DateTime.parse(dateAndTime);
+        dateTime.isAfter(todayDate)
+            ? _notifyList.add(NotifyModel(data[i].id!, dateTime, data[i].title!,
+                data[i].body!, data[i].status!))
+            : print("no add date ==========");
       }
       _notifyList.sort((a, b) {
         return a.notifyDate.compareTo(b.notifyDate);
       });
-      // setState(() {
-      //   _notificationList = data;
-      //   _notificationList.sort((a, b) {
-      //     return a.drugData.compareTo(b.drugData);
-      //   });
-      // });
     } on Exception catch (e) {
       // TODO
       print("exception get notification : $e");
@@ -58,21 +51,20 @@ class _PatientProfileNotificationState
   _getTodayNotification() async {
     try {
       _notifyList.clear();
-      var data = await DatabaseHelper.instance!.getAllNotification();
+      var data = await DatabaseHelper.instance?.getAllNotification();
 
       for (int i = 0; i < data!.length; i++) {
-        // String dateAndTime =
-        // data[i].date!.substring(0, 10) + " " + data[i].time;
-        // DateTime date = DateTime.parse(dateAndTime);
-        // print("data time  : $date");
+        String dateAndTime =
+            data[i].date!.substring(0, 10) + " " + data[i].time!;
+        DateTime date = DateTime.parse(dateAndTime);
+        print("data time  : $date");
 
-        // if (date.day == todayDate.day && date.isAfter(todayDate)) {
-        // print("list item : ${data[i]}");
-        // setState(() {
-        //   _notifyList.add(NotifyModel(
-        //       data[i].id, date, data[i].title, data[i].body, data[i].status));
-        // });
-        // }
+        if (date.day == todayDate.day && date.isAfter(todayDate)) {
+          setState(() {
+            _notifyList.add(NotifyModel(data[i].id!, date, data[i].title!,
+                data[i].body!, data[i].status!));
+          });
+        }
       }
       _notifyList.sort((a, b) {
         return a.notifyDate.compareTo(b.notifyDate);
@@ -102,7 +94,7 @@ class _PatientProfileNotificationState
             drawer: NavDrawer(),
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              actions: [BarcodeReader(mode: 1)],
+              actions: <Widget>[BarcodeReader(mode: 1)],
               elevation: 0,
               backgroundColor: Colors.transparent,
               title: Align(
@@ -212,17 +204,16 @@ class _PatientProfileNotificationState
                       top: 5,
                       bottom: 10,
                     ),
-                    // shadowColor: Utils.primaryColor,
+                    shadowColor: Color(0xff5C376D),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     child: Center(
                       child: Container(
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          // border: Border.all(color: Utils.primaryColor)
-                        ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Color(0xff5C376D))),
                         child: ListView.builder(
                             itemCount: _notifyList.length,
                             itemBuilder: (context, index) {
@@ -270,19 +261,18 @@ class _PatientProfileNotificationState
                       child: Container(
                         width: 2,
                         height: 40,
-                        // color: Utils.primaryColor,
+                        color: Color(0xff5C376D),
                       ),
                     ),
               Container(
                 margin: EdgeInsets.only(right: 10, left: 10),
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  // color: notificationModel.status == 1
-                  //     ? Utils.primaryColor
-                  //     : Colors.white,
-                  // border: Border.all(color: Utils.primaryColor, width: 2.0)
-                ),
+                    borderRadius: BorderRadius.circular(50),
+                    color: notificationModel.status == 1
+                        ? Color(0xff5C376D)
+                        : Colors.white,
+                    border: Border.all(color: Color(0xff5C376D), width: 2.0)),
               ),
               index == listLength - 1
                   ? Expanded(
@@ -296,7 +286,7 @@ class _PatientProfileNotificationState
                       child: Container(
                         width: 2,
                         height: 40,
-                        // color: Utils.primaryColor,
+                        color: Color(0xff5C376D),
                       ),
                     ),
             ],

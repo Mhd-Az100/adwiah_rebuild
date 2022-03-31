@@ -1,12 +1,19 @@
-// ignore_for_file: curly_braces_in_flow_control_structures
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_const_constructors
+
+import 'dart:async';
+import 'dart:convert';
 
 import 'package:adwiah/Utils/db_helper.dart';
 import 'package:adwiah/View/Barcode/barcodeReader.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
+import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
+import 'package:adwiah/View/PatienProfile/notification_controller.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/header.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:sized_context/sized_context.dart';
@@ -33,8 +40,8 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
   TextEditingController takeController = new TextEditingController();
   TextEditingController takeTimeController = new TextEditingController();
 
-  // NotificationController notificationController =
-  //     Get.put(NotificationController());
+  NotificationController notificationController =
+      Get.put(NotificationController());
 
   List<DateClass> _dateList = [];
 
@@ -165,10 +172,10 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
                     drugsTimeController.text = _time!;
                     drugsTime = _hour! + ":" + _minute!;
                     print("drugs time : $drugsTime");
-                    // drugsTimeController.text = formatDate(
-                    //     DateTime(2019, 08, 1, selectedTime.hour,
-                    //         selectedTime.minute),
-                    //     [hh, ':', nn, " ", am]).toString();
+                    drugsTimeController.text = formatDate(
+                        DateTime(2019, 08, 1, selectedTime.hour,
+                            selectedTime.minute),
+                        [hh, ':', nn, " ", am]).toString();
                     FocusScope.of(context).requestFocus(FocusNode());
                   });
               },
@@ -199,9 +206,9 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
         drugsTimeController.text = _time!;
         drugsTime = _hour! + ":" + _minute!;
         print("drugs time : $drugsTime");
-        // drugsTimeController.text = formatDate(
-        //     DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
-        // [hh, ':', nn, " ", am]).toString();
+        drugsTimeController.text = formatDate(
+            DateTime(2019, 08, 1, selectedTime.hour, selectedTime.minute),
+            [hh, ':', nn, " ", am]).toString();
         FocusScope.of(context).requestFocus(FocusNode());
       });
   }
@@ -228,15 +235,14 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
     if (drugsDateController.text.isNotEmpty &&
         drugsTimeController.text.isNotEmpty &&
         durationController.text.isNotEmpty) {
-      // try {
-      var result = await DatabaseHelper.instance!.addDrugs(DrugsModel(
+      var result = await DatabaseHelper.instance?.addDrugs(DrugsModel(
           name: drugsName,
           take: _radioValue == 2 ? takeController.text : takeType,
           date: drugsDateController.text,
           time: drugsTimeController.text,
           duration: durationController.text,
           presId: 0));
-      if (result > 0) {
+      if (result! > 0) {
         drugsId = result;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: Color(0xff5C376D),
@@ -250,9 +256,7 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
 
         setState(() {
           _drugsNameAddList.add(drugsName!);
-          // _drugsList.removeAt(drugsNameIndex);
         });
-        // _drugsList.clear();
         print("add notification :$result");
         _addNotification(result);
       } else {
@@ -265,9 +269,6 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
               style: TextStyle(color: Colors.white),
             )));
       }
-      // } on Exception catch (e) {
-      //   print("save drugs : $e");
-      // }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Color(0xff5C376D),
@@ -324,7 +325,7 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
     print("### Done generate Dates");
 
     for (int i = 0; i < _dateList.length; i++) {
-      var result = DatabaseHelper.instance!.addNotification(NotificationModel(
+      var result = DatabaseHelper.instance?.addNotification(NotificationModel(
         time: _dateList[i].time,
         date: _dateList[i].date,
         title: _dateList[i].drugsName,
@@ -347,7 +348,7 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
 
   _addDrugsLocalNotification(int drugsId) async {
     List<NotificationModel> data =
-        await DatabaseHelper.instance!.getNotificationByStatus() ?? [];
+        await DatabaseHelper.instance?.getNotificationByStatus() ?? [];
 
     print("list of notification : $data");
 
@@ -361,10 +362,13 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
         print("yes its notify :##");
         print("time now : ${DateTime.now()}");
 
+//============================Notification=============================
         // NotificationController().configureLocalTimeZone();
         // NotificationController().scheduleAlarm(date, data[i]);
+//============================Notification=============================
+
         data[i].status = 1;
-        var result = DatabaseHelper.instance!.updateNotification(data[i]);
+        var result = DatabaseHelper.instance?.updateNotification(data[i]);
       } else {
         // print("no equal ");
         print("no #### ");
@@ -372,17 +376,22 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
     }
   }
 
+  InitialAppController controller = Get.find<InitialAppController>();
+
   void initData() async {
-    // var tnList = jsonDecode(await storage.read(key: 'brandList'));
-    // //
-    // List midi = tnList;
-    // setState(() {
-    //   _midiList = midi
-    //       .map((item) => MultiSelectItem(
-    //           item, item['Name'] != null ? item['Name'] : item['Brand_Name']))
-    //       .toList();
-    //   print("list  of drugs : $tnList");
-    // });
+    var brandEncode = jsonEncode(controller.brandList);
+    var brandDecode = jsonDecode(brandEncode);
+
+    var tnList = brandDecode;
+    //
+    List midi = tnList;
+    setState(() {
+      _midiList = midi
+          .map((item) => MultiSelectItem(
+              item, item['Name'] != null ? item['Name'] : item['Brand_Name']))
+          .toList();
+      print("list  of drugs : $tnList");
+    });
   }
 
   @override
@@ -406,7 +415,7 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
             drawer: NavDrawer(),
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              actions: [BarcodeReader(mode: 1)],
+              actions: <Widget>[BarcodeReader(mode: 1)],
               elevation: 0,
               backgroundColor: Colors.transparent,
               title: Align(
@@ -418,7 +427,6 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
             body: GestureDetector(
               onTap: () {
                 FocusScopeNode currentFocus = FocusScope.of(context);
-
                 if (!currentFocus.hasPrimaryFocus) {
                   currentFocus.unfocus();
                 }
@@ -468,17 +476,16 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
                           buttonText: Text(lang == "en"
                               ? 'Chose medicine from the list'
                               : 'اختر من قائمة الأدوية'),
-                          items: _midiList ?? [],
+                          items: _midiList!,
                           searchable: true,
                           validator: (values) {
                             if (values == null || values.isEmpty) {
                               return "Required";
                             }
-                            // List<String> names =
-                            //     values.map((e) => e.name).toList();
-                            // if (names.contains("Frog")) {
-                            //   return "Frogs are weird!";
-                            // }
+                            List names = values.map((e) => e).toList();
+                            if (names.contains("Frog")) {
+                              return "Frogs are weird!";
+                            }
                             return null;
                           },
                           onConfirm: (values) {
@@ -802,33 +809,31 @@ class _AddDrugsPageSingleState extends State<AddDrugsSinglePage> {
                           ),
                         ),
                         SizedBox(height: 10),
-                        Container(
-                          child: InkWell(
-                            onTap: () => _selectTime(context),
-                            child: IgnorePointer(
-                              child: TextFormField(
-                                controller: drugsTimeController,
-                                decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.symmetric(
-                                        vertical: 10.0, horizontal: 10.0),
-                                    enabledBorder: OutlineInputBorder(
+                        InkWell(
+                          onTap: () => _selectTime(context),
+                          child: IgnorePointer(
+                            child: TextFormField(
+                              controller: drugsTimeController,
+                              decoration: InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide: BorderSide(
+                                        color: Colors.black, width: 2.0),
+                                  ),
+                                  border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide: BorderSide(
-                                          color: Colors.black, width: 2.0),
-                                    ),
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    hintText: lang == "en" ? 'Time' : 'الوقت',
-                                    suffixIcon: Icon(Icons.timer)),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please Enter your date of birth';
-                                  }
-                                  return null;
-                                },
-                              ),
+                                          color: Colors.black, width: 2.0)),
+                                  hintText: lang == "en" ? 'Time' : 'الوقت',
+                                  suffixIcon: Icon(Icons.timer)),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please Enter your date of birth';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                         ),

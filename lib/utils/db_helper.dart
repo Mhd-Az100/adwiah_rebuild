@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_declarations
+
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -36,7 +38,8 @@ class DatabaseHelper {
     final integerType = 'INTEGER NOT NULL';
     final doubleType = 'DOUBLE NOT NULL';
 
-    await db.execute('''
+    await db.execute(
+        '''
 CREATE TABLE ${VisitModel.visitTable} (
   ${VisitModel.columnVisitId} $idType,
   ${VisitModel.columnDoctorName} $textType,
@@ -50,7 +53,8 @@ CREATE TABLE ${VisitModel.visitTable} (
   )
 ''');
 
-    await db.execute('''
+    await db.execute(
+        '''
 CREATE TABLE ${PrescriptionModel.prescriptionTable} (
   ${PrescriptionModel.columnPrescriptionId} $idType,
   ${PrescriptionModel.columnPrescriptionDrugs} $textType,
@@ -59,7 +63,8 @@ CREATE TABLE ${PrescriptionModel.prescriptionTable} (
   )
 ''');
 
-    await db.execute('''
+    await db.execute(
+        '''
 CREATE TABLE ${DrugsModel.drugsTable} (
   ${DrugsModel.columnDrugsId} $idType,
   ${DrugsModel.columnDrugsName} $textType,
@@ -71,7 +76,8 @@ CREATE TABLE ${DrugsModel.drugsTable} (
   )
 ''');
 
-    await db.execute('''
+    await db.execute(
+        '''
 CREATE TABLE ${NotificationModel.notificationTable} (
   ${NotificationModel.columnNotificationId} $idType,
   ${NotificationModel.columnNotificationTitle} $textType,
@@ -84,7 +90,8 @@ CREATE TABLE ${NotificationModel.notificationTable} (
   )
 ''');
 
-    await db.execute('''
+    await db.execute(
+        '''
 CREATE TABLE ${DoctorModel.doctorTable} (
   ${DoctorModel.columnDoctorId} $idType,
   ${DoctorModel.columnDoctorName} $textType,

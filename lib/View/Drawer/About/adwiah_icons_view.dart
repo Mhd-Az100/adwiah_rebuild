@@ -1,3 +1,5 @@
+import 'package:adwiah/View/Barcode/barcodeReader.dart';
+import 'package:adwiah/View/Drawer/View_Model/about_view_model.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/widgets/bottombar.dart';
@@ -8,6 +10,8 @@ import 'package:sized_context/sized_context.dart';
 
 class AdwiahIcons extends StatelessWidget {
   InitialAppController controller = Get.find<InitialAppController>();
+  AboutController ctrl = Get.put(AboutController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +33,7 @@ class AdwiahIcons extends StatelessWidget {
                       textScaleFactor: MediaQuery.of(context).textScaleFactor,
                       style: TextStyle(
                           fontSize: context.diagonalInches >= 7 ? 24 : 18))),
-              // actions: <Widget>[BarcodeReader(mode: 1)],
+              actions: [BarcodeReader(mode: 1)],
             ),
             drawer: NavDrawer(),
             body: Column(
@@ -43,73 +47,6 @@ class AdwiahIcons extends StatelessWidget {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white.withOpacity(0.6),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              MaterialButton(
-                                minWidth: 130,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0),
-                                ),
-                                child: const FittedBox(
-                                  child: Text(
-                                    'English',
-                                    style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      fontSize: 14,
-                                      // color: lang == 'en'
-                                      // ? Colors.white
-                                      // : Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                height: 45,
-                                onPressed: () {
-                                  // setState(() {
-                                  //   lang = 'en';
-                                  // });
-                                },
-                                // color: lang == 'en'
-                                //     ? Color(0xff5C376D)
-                                //     : Colors.white,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              MaterialButton(
-                                minWidth: 130,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(7.0),
-                                ),
-                                child: const FittedBox(
-                                  child: Text(
-                                    'العربية',
-                                    style: TextStyle(
-                                      fontFamily: 'Cairo',
-                                      fontSize: 14,
-                                      // color: lang == 'ar'
-                                      //     ? Colors.white
-                                      //     : Colors.black,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                height: 45,
-                                onPressed: () {
-                                  // setState(() {
-                                  //   lang = 'ar';
-                                  // });
-                                },
-                                // color: lang == 'ar'
-                                //     ? Color(0xff5C376D)
-                                //     : Colors.white,
-                              ),
-                            ],
-                          ),
                         ),
                       ),
                     ),
@@ -126,14 +63,18 @@ class AdwiahIcons extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
                           border: Border.fromBorderSide(BorderSide(
-                              color: Colors.black54.withOpacity(0.1),
-                              width: 1.0)),
+                            color: Colors.black54.withOpacity(0.1),
+                          )),
                         ),
                         child: ListTile(
-                          leading: Image.network(
-                            controller.iconsList[index].iconUrl!
-                                .toString()
-                                .trim(),
+                          leading: SizedBox(
+                            width: 50,
+                            child: Image.network(
+                              // 'https://hippokrateways.net/icons/icons-01.png',
+                              controller.iconsList[index].iconUrl!
+                                  .toString()
+                                  .trim(),
+                            ),
                           ),
                           title: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,

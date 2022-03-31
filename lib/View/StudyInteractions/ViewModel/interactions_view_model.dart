@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
+import 'package:adwiah/Models/interactions.dart';
 import 'package:adwiah/Models/study_interactions.dart';
 import 'package:adwiah/Services/studyinteraction_service.dart';
 import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 class StudyInteractionsController extends GetxController {
   List<StudyInteractionsModel> studyBrand = <StudyInteractionsModel>[].obs;
   List<StudyInteractionsModel> studyIng = <StudyInteractionsModel>[].obs;
+  List<InteractionModel> interaction = <InteractionModel>[].obs;
   StudyInteractionService studyInteractionService = StudyInteractionService();
   AlphaBetController alphactrl = Get.find<AlphaBetController>();
 
@@ -32,6 +34,43 @@ class StudyInteractionsController extends GetxController {
     } catch (e) {
       print('Errorr $e');
     }
+  }
+
+  getInteractions(String id) async {
+    interaction = [];
+    try {
+      interaction = await studyInteractionService.getInteractions(id);
+    } catch (e) {
+      print('Errorr $e');
+    }
+  }
+
+  getInteractionsSeverities(String id) async {
+    // studyBrand = [];
+    // try {
+    //   studyBrand = await studyInteractionService.getInteractionsSeverities(id);
+    // } catch (e) {
+    //   print('Errorr $e');
+    // }
+  }
+
+  getInteractionsSeveritiesByBrand(String id, String routes) async {
+    // studyBrand = [];
+    // try {
+    //   studyBrand = await studyInteractionService
+    //       .getInteractionsSeveritiesByBrand(id, routes);
+    // } catch (e) {
+    //   print('Errorr $e');
+    // }
+  }
+  getInteractionDetails(String id) async {
+    // studyBrand = [];
+    // try {
+    //   studyBrand = await studyInteractionService
+    //       .getInteractionDetails(id);
+    // } catch (e) {
+    //   print('Errorr $e');
+    // }
   }
 
   Map<InteractioObject, bool> selectedIng = {};

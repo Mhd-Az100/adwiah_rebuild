@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:adwiah/Models/patient.dart';
 import 'package:adwiah/View/Barcode/barcodeReader.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/PatienProfile/Components/card_patient.dart';
@@ -11,6 +14,7 @@ import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class PatientHome extends StatefulWidget {
   @override
@@ -21,31 +25,33 @@ class _PatientHomeState extends State<PatientHome> {
   var lang = "en";
   // Patient patient;
   bool isComplete = false;
+  final storage = GetStorage();
 
-  // void initData() async {
-  //   var p = Patient.fromJson(jsonDecode(
-  //       await storage.read(key: 'patient') != null
-  //           ? await storage.read(key: 'patient')
-  //           : '{}'));
-  //   print("patient : ${p.name}");
-  //   print("gender : ${p.gender}");
-  //   print("date : ${p.dob}");
-  //   if (p.name == null && p.gender == null && p.dob == null) {
-  //     setState(() {
-  //       isComplete = false;
-  //     });
-  //   } else {
-  //     setState(() {
-  //       isComplete = true;
-  //     });
-  //   }
-  // }
+  void initData() async {
+    var p = Patient.fromJson(jsonDecode(
+        // ignore: prefer_if_null_operators
+        await storage.read('patient') != null
+            ? await storage.read('patient')
+            : '{}'));
+    print("patient : ${p.name}");
+    print("gender : ${p.gender}");
+    print("date : ${p.dob}");
+    if (p.name == null && p.gender == null && p.dob == null) {
+      setState(() {
+        isComplete = false;
+      });
+    } else {
+      setState(() {
+        isComplete = true;
+      });
+    }
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // initData();
+    initData();
   }
 
   @override
@@ -175,7 +181,7 @@ class _PatientHomeState extends State<PatientHome> {
                             txt: lang == "en"
                                 ? 'Patient Profile'
                                 : 'معلومات المريض',
-                            iscomplate: isComplete,
+                            iscomplate: true,
                             imgPath: 'assets/images/patient.png',
                             ontap: () {
                               Get.to(() => PatientPrifile(lang: lang));

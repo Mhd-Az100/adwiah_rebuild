@@ -34,11 +34,15 @@ dependencies:
   cached_network_image: ^3.2.0
   carousel_slider: ^4.0.0
   cupertino_icons: ^1.0.2
+  date_format: ^2.0.5
   device_information: ^0.0.4
   firebase_auth: ^3.3.10
   flutter:
     sdk: flutter
+  flutter_background_service: ^1.0.4
   flutter_barcode_scanner: ^2.0.0
+  flutter_html: ^2.2.1
+  flutter_native_timezone: ^2.0.0
   font_awesome_flutter: ^9.2.0
   geolocator: ^8.2.0
   get: ^4.6.1

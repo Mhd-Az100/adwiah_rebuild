@@ -16,7 +16,7 @@ class PatienCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: ontap,
+      onTap: iscomplate ? ontap : () {},
       child: Material(
         borderRadius: BorderRadius.circular(10),
         color: const Color(0xffffffff),
@@ -31,7 +31,7 @@ class PatienCard extends StatelessWidget {
                 width: (MediaQuery.of(context).size.width / 3) * 0.5,
                 child: Material(
                   borderRadius: BorderRadius.circular(100),
-                  color: const Color(0xff5C376D),
+                  color: iscomplate ? Color(0xff5C376D) : Color(0xffC8C8C8),
                   child: IconButton(
                       padding: const EdgeInsets.all(4.0),
                       icon: Image.asset(
@@ -41,16 +41,18 @@ class PatienCard extends StatelessWidget {
                         width:
                             (MediaQuery.of(context).size.width / 3) * 0.5 - 25,
                       ),
-                      onPressed: ontap),
+                      onPressed: iscomplate ? ontap : () {}),
                 ),
               ),
               Flexible(
                   child: Text(txt,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff5C376D))))
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color:
+                            iscomplate ? Color(0xff5C376D) : Color(0xffC8C8C8),
+                      )))
             ],
           ),
         ),

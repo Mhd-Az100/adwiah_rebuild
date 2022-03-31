@@ -118,7 +118,7 @@ class AboutScreen extends StatelessWidget {
                 ),
                 Expanded(
                     child: ListView.builder(
-                  itemCount: controller.aboutTextsList.length,
+                  itemCount: controller.aboutTextsList.length - 1,
                   itemBuilder: ((context, index) {
                     return Obx(() => AccordionWidget(
                           title: ctrl.lang.value == 'ar'

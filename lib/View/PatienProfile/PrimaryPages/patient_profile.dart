@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, curly_braces_in_flow_control_structures, non_constant_identifier_names, unnecessary_null_comparison
-
 import 'dart:convert';
-
 import 'package:adwiah/Models/patient.dart';
 import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/Barcode/barcodeReader.dart';
@@ -73,7 +71,7 @@ class _PatientPrifileState extends State<PatientPrifile> {
                     dobController.text = myFormate.format(picked);
 
                     patient!.dob = picked.toString();
-                    var p = patient!.toJson();
+                    var p = patient?.toJson();
                     print(p);
                     FocusScope.of(context).requestFocus(FocusNode());
                   });
@@ -117,33 +115,30 @@ class _PatientPrifileState extends State<PatientPrifile> {
   final _multiSelect1Key = GlobalKey<FormFieldState>();
   final _multiSelect2Key = GlobalKey<FormFieldState>();
   var lang = "en";
-
-  // StorageHelperController storage = Get.find<StorageHelperController>();
   final storage = GetStorage();
-
   InitialAppController controller = Get.find<InitialAppController>();
   void initData() async {
     // ignore: prefer_if_null_operators
     var p = Patient.fromJson(jsonDecode(await storage.read('patient') != null
         ? await storage.read('patient')
         : '{}'));
-
+    var diseaseEncode = jsonEncode(controller.diseaselist);
+    var brandEncode = jsonEncode(controller.brandList);
+    var ingEncode = jsonEncode(controller.ingredientList);
+    var diseaseDecode = jsonDecode(diseaseEncode);
+    var brandDecode = jsonDecode(brandEncode);
+    var ingDecode = jsonDecode(ingEncode);
+    List dis = diseaseDecode;
+    List midi = brandDecode + ingDecode;
     setState(() {
       patient = p;
       diseaseList = lang == "en"
-          ? controller.diseaselist
-              .map((item) => MultiSelectItem(item, item.valEn!))
-              .toList()
-          : controller.diseaselist
-              .map((item) => MultiSelectItem(item, item.valAr!))
-              .toList();
-      midiList = controller.ingredientList != null
-          ? controller.ingredientList
-              .map((item) => MultiSelectItem(item, item.name!))
-              .toList()
-          : controller.brandList
-              .map((item) => MultiSelectItem(item, item.brandName!))
-              .toList();
+          ? dis.map((item) => MultiSelectItem(item, item['Val_en'])).toList()
+          : dis.map((item) => MultiSelectItem(item, item['Val_ar'])).toList();
+      midiList = midi
+          .map((item) => MultiSelectItem(
+              item, item['Name'] != null ? item['Name'] : item['Brand_Name']))
+          .toList();
 
       name_controller.text = p.name!;
       gender = p.gender!;
@@ -206,7 +201,7 @@ class _PatientPrifileState extends State<PatientPrifile> {
   void initState() {
     initData();
     super.initState();
-    lang = this.widget.lang;
+    lang = widget.lang;
   }
 
   @override
@@ -398,6 +393,9 @@ class _PatientPrifileState extends State<PatientPrifile> {
                                                 onTap: () {
                                                   setState(() {
                                                     gender = 'male';
+                                                    patient!.gender = 'male';
+                                                    var p = patient?.toJson();
+                                                    print(p);
                                                   });
                                                 },
                                               ),
@@ -409,6 +407,9 @@ class _PatientPrifileState extends State<PatientPrifile> {
                                                 onTap: () {
                                                   setState(() {
                                                     gender = 'female';
+                                                    patient!.gender = 'female';
+                                                    var p = patient?.toJson();
+                                                    print(p);
                                                   });
                                                 },
                                               ),
@@ -492,21 +493,11 @@ class _PatientPrifileState extends State<PatientPrifile> {
                                     key: _multiSelectKey,
                                     initialChildSize: 0.7,
                                     maxChildSize: 0.95,
-                                    initialValue: lang == "en"
-                                        ? dis_controller
-                                            .map((e) =>
-                                                MultiSelectItem(e, e['Val_en']))
-                                            .toList()
-                                        : dis_controller
-                                            .map((e) =>
-                                                MultiSelectItem(e, e['Val_ar']))
-                                            .toList(),
                                     onSelectionChanged: (val) {
                                       patient?.chronic_diseases = val;
                                       var p = patient?.toJson();
                                       print(p);
                                       setState(() {
-                                        // dis_controller.clear();
                                         dis_controller = val;
                                         print(
                                             "dis controller : $dis_controller");
@@ -645,16 +636,9 @@ class _PatientPrifileState extends State<PatientPrifile> {
                                       key: _multiSelect2Key,
                                       initialChildSize: 0.7,
                                       maxChildSize: 0.95,
-                                      // initialValue: hyper_controller
-                                      //     .map((e) => MultiSelectItem(
-                                      //         e,
-                                      //         e['Name'] != null
-                                      //             ? e['Name']
-                                      //             : e['Brand_Name']))
-                                      //     .toList(),
                                       onSelectionChanged: (val) {
                                         patient!.drug_hypersensetitvity = val;
-                                        var p = patient!.toJson();
+                                        var p = patient?.toJson();
                                         print(p);
                                       },
                                       decoration: BoxDecoration(

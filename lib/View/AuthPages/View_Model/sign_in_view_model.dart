@@ -3,6 +3,8 @@
 import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/AuthPages/verificaion_view.dart';
 import 'package:adwiah/View/Home/home.dart';
+import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
+import 'package:adwiah/View/Map/ViewModel/map_view_model.dart';
 import 'package:adwiah/constants/constans.dart';
 import 'package:adwiah/models/login.dart';
 import 'package:adwiah/services/auth_service.dart';
@@ -49,9 +51,22 @@ class SignInController extends GetxController {
                 ? soragectrl.saveaccount(
                     emailController.text, passwordController.text)
                 : soragectrl.saveaccount('', '');
-            loginData!.status == 1
-                ? Get.to(() => Home())
-                : Get.to(Verification(this.emailController.text));
+            if (loginData!.status == 1) {
+              await Get.find<StorageHelperController>().readToken();
+              await Get.find<InitialAppController>().getIngredientList();
+              await Get.find<InitialAppController>().getBrandList();
+              await Get.find<InitialAppController>().getDisease();
+              Get.find<InitialAppController>().geticons();
+              Get.find<InitialAppController>().getabouttexts();
+              Get.find<InitialAppController>().getcountries();
+              Get.find<InitialAppController>().getMedicianCenters();
+              Get.find<InitialAppController>().getPosts();
+              Get.find<MapController>().getVersions();
+              Get.find<MapController>().getLocations();
+              Get.to(() => Home());
+            } else {
+              Get.to(Verification(this.emailController.text));
+            }
           }
         }
       } catch (e) {
