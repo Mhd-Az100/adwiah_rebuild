@@ -12,25 +12,27 @@ class StudyInteractionService {
   StorageHelperController soragectrl = Get.find<StorageHelperController>();
 
   Future getstudyIng(String id) async {
-    List<StudyInteractionsModel> studyIng = [];
-    print(soragectrl.Token);
-    var response = await _network.get(
-        url: 'Study_Interaction_ings/$id', token: soragectrl.Token);
-    if (response != null) {
-      for (var item in response) {
-        studyIng.add(StudyInteractionsModel.fromJson(item));
+    try {
+      List<StudyInteractionsModel> studyIng = [];
+      var response = await _network.get(
+          url: 'Study_Interaction_ings/$id', token: soragectrl.Token);
+      if (response != null) {
+        for (var item in response) {
+          studyIng.add(StudyInteractionsModel.fromJson(item));
+        }
+        return studyIng;
+      } else {
+        var error = response['message'];
+        showToast(error);
+        return <StudyInteractionsModel>[];
       }
-      return studyIng;
-    } else {
-      var error = response['message'];
-      showToast(error);
-      return false;
+    } catch (e) {
+      return <StudyInteractionsModel>[];
     }
   }
 
   Future getstudyBrand(String id, String routes) async {
     List<StudyInteractionsModel> studyBrand = [];
-    print(soragectrl.Token);
     var response = await _network.get(
         url:
             'Study_Interaction_brands_with_Routes/$id/$routes/${soragectrl.country_id}',
@@ -39,7 +41,6 @@ class StudyInteractionService {
       for (var item in response) {
         studyBrand.add(StudyInteractionsModel.fromJson(item));
       }
-      inspect(studyBrand);
       return studyBrand;
     } else {
       var error = response['message'];
@@ -49,72 +50,80 @@ class StudyInteractionService {
   }
 
   Future getInteractions(String id) async {
-    List<InteractionModel> interaction = [];
-    print(soragectrl.Token);
-    var response = await _network.get(
-        url: 'get_Interactions/$id', token: soragectrl.Token);
-    if (response != null) {
-      for (var item in response) {
-        interaction.add(InteractionModel.fromJson(item));
+    try {
+      List<InteractionModel> interaction = [];
+      var response = await _network.get(
+          url: 'get_Interactions/$id', token: soragectrl.Token);
+      if (response != null) {
+        for (var item in response) {
+          interaction.add(InteractionModel.fromJson(item));
+        }
+        return interaction;
+      } else {
+        var error = response['message'];
+        showToast(error);
+        return <InteractionModel>[];
       }
-      inspect(interaction);
-      return interaction;
-    } else {
-      var error = response['message'];
-      showToast(error);
-      return false;
+    } catch (e) {
+      return [];
     }
   }
 
   Future getInteractionsSeveritiesByBrand(String id, String routes) async {
-    print(soragectrl.Token);
-    var response = await _network.get(
-        url: 'get_Interactions_severities_by_brand_id_route/$id/$routes',
-        token: soragectrl.Token);
-    if (response != null) {
-      // for (var item in response) {
-      //   studyBrand.add(StudyInteractionsModel.fromJson(item));
-      // }
-      inspect(response);
-      return response;
-    } else {
-      var error = response['message'];
-      showToast(error);
-      return false;
+    try {
+      var response = await _network.get(
+          url: 'get_Interactions_severities_by_brand_id_route/$id/$routes',
+          token: soragectrl.Token);
+      if (response != null) {
+        // for (var item in response) {
+        //   studyBrand.add(StudyInteractionsModel.fromJson(item));
+        // }
+        return response;
+      } else {
+        var error = response['message'];
+        showToast(error);
+        return [];
+      }
+    } catch (e) {
+      return [];
     }
   }
 
   Future getInteractionsSeverities(String id) async {
-    print(soragectrl.Token);
-    var response = await _network.get(
-        url: 'get_Interactions_severities/$id', token: soragectrl.Token);
-    if (response != null) {
-      // for (var item in response) {
-      //   studyBrand.add(StudyInteractionsModel.fromJson(item));
-      // }
-      inspect(response);
-      return response;
-    } else {
-      var error = response['message'];
-      showToast(error);
-      return false;
+    try {
+      var response = await _network.get(
+          url: 'get_Interactions_severities/$id', token: soragectrl.Token);
+      if (response != null) {
+        // for (var item in response) {
+        //   studyBrand.add(StudyInteractionsModel.fromJson(item));
+        // }
+        return response;
+      } else {
+        var error = response['message'];
+        showToast(error);
+        return [];
+      }
+    } catch (e) {
+      return [];
     }
   }
 
   Future getInteractionDetails(String id) async {
-    print(soragectrl.Token);
-    var response = await _network.get(
-        url: 'get_Interaction_details/$id', token: soragectrl.Token);
-    if (response != null) {
-      // for (var item in response) {
-      //   studyBrand.add(StudyInteractionsModel.fromJson(item));
-      // }
-      inspect(response);
-      return response;
-    } else {
-      var error = response['message'];
-      showToast(error);
-      return false;
+    try {
+      var response = await _network.get(
+          url: 'get_Interaction_details/$id', token: soragectrl.Token);
+      if (response != null) {
+        // for (var item in response) {
+        //   studyBrand.add(StudyInteractionsModel.fromJson(item));
+        // }
+        return response;
+      } else {
+        var error = response['message'];
+        showToast(error);
+        return "no detailse";
+      }
+    } catch (e) {
+      return [];
     }
   }
 }

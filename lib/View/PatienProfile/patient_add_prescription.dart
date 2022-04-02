@@ -8,10 +8,10 @@ import 'dart:ui';
 import 'package:adwiah/Models/patient.dart';
 import 'package:adwiah/Utils/db_helper.dart';
 import 'package:adwiah/View/Barcode/barcodeReader.dart';
+import 'package:adwiah/View/Dosage/dosage_detaild_box_view.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/StudyInteractions/ViewModel/interactions_view_model.dart';
-import 'package:adwiah/Widgets/FloatingButton/dosage_detaild_box_view.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/header.dart';
 import 'package:adwiah/Widgets/image_view.dart';
@@ -55,7 +55,9 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
   StudyInteractionsController studyctrl =
       Get.find<StudyInteractionsController>();
   void initData() async {
-    List midi = controller.brandList;
+    var brandEncode = jsonEncode(controller.brandList);
+    List brandlist = jsonDecode(brandEncode);
+    List midi = brandlist;
     setState(() {
       _midiList = midi
           .map((item) => MultiSelectItem(
@@ -1043,22 +1045,22 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                                     isDense: true,
                                     onChanged: (String? s) {
                                       print("drugs name");
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AddDrugsPage(
-                                                    lang: lang,
-                                                    drugsName: drugsName,
-                                                    prescriptionId:
-                                                        prescriptionId,
-                                                  ))).then((value) {
-                                        setState(() {
-                                          value != null
-                                              ? _drugsNameAddList.add(value)
-                                              : print("#### no add data ###");
-                                        });
-                                      });
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             AddDrugsPage(
+                                      //               lang: lang,
+                                      //               drugsName: drugsName,
+                                      //               prescriptionId:
+                                      //                   prescriptionId,
+                                      //             ))).then((value) {
+                                      //   setState(() {
+                                      //     value != null
+                                      //         ? _drugsNameAddList.add(value)
+                                      //         : print("#### no add data ###");
+                                      //   });
+                                      // });
                                     },
                                     items: _midiList?.map((value) {
                                       return DropdownMenuItem<String>(

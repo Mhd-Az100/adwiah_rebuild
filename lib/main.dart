@@ -10,6 +10,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:device_information/device_information.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // import 'package:flutter_background_service/flutter_background_service.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
@@ -84,6 +85,7 @@ Future<void> main() async {
   ]);
 
   await GetStorage.init();
+
   //============get device code and imei============//
   // Helper.Code = Platform.isIOS ? Helper.PlatformIos : Helper.PlatformAndroid;
   try {
@@ -94,7 +96,9 @@ Future<void> main() async {
   }
 
   //=======================================//
+  // FlutterSecureStorage();
 
+  // GetStorage().erase();
   runApp(MyApp());
 }
 

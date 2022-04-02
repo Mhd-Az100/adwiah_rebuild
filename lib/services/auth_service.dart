@@ -106,12 +106,14 @@ class AuthService {
     required String codeverify,
     required String email,
   }) async {
+    LoginModel? loginRespons;
     var response = await _network.get(
         url: 'activate_new_account/${Helper.Code}/$email/$codeverify');
     if (response != null) {
+      loginRespons = LoginModel.fromJson(response);
       // fetchUserNameandPhoneNumber();
       BotToast.showText(text: '$response', align: Alignment.center);
-      return true;
+      return loginRespons;
     } else {
       var error = response['message'];
       showToast(error);

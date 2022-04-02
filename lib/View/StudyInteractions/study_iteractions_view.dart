@@ -4,13 +4,13 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:adwiah/Models/study_interactions.dart';
+import 'package:adwiah/View/Dosage/dosage_detaild_box_view.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/StudyInteractions/Components/studyTnteractions_topbar.dart';
 import 'package:adwiah/View/StudyInteractions/ViewModel/interactions_view_model.dart';
 import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
 import 'package:adwiah/Widgets/AlphaScroll/alphabet_scoll_view.dart';
-import 'package:adwiah/Widgets/FloatingButton/dosage_detaild_box_view.dart';
 import 'package:adwiah/Widgets/bottombar.dart';
 import 'package:adwiah/Widgets/card_list_search_widget.dart';
 import 'package:adwiah/Widgets/header.dart';

@@ -2,8 +2,9 @@
 
 import 'package:adwiah/Models/brands_by_id_model.dart';
 import 'package:adwiah/View/Disease/brandsByIng.dart';
+import 'package:adwiah/View/StudyInteractions/interactions.dart';
 import 'package:adwiah/Widgets/FloatingButton/ViewModel/floating_button_view_model_view.dart';
-import 'package:adwiah/Widgets/FloatingButton/alternative_trade_names_view.dart';
+import 'package:adwiah/View/AlternativeTrade/alternative_trade_names_view.dart';
 import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -222,24 +223,17 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
               onPressed: () {
                 animate();
                 var id = widget.id;
-                if (widget.mode == 0)
-                  ;
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => GetInteractions([
-                //               {"ID": id, "Name": widget.name}
-                //             ], widget.id, widget.mode)));
-                else
-                  ;
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => GetInteractions(
-                //               widget.details,
-                //               widget.id,
-                //               1,
-                //             )));
+                if (widget.mode == 0) {
+                  Get.to(() => GetInteractions(details: [
+                        {"ID": id, "Name": widget.name}
+                      ], id: widget.id, mode: widget.mode));
+                } else {
+                  Get.to(() => GetInteractions(
+                        details: widget.details,
+                        id: widget.id,
+                        mode: 1,
+                      ));
+                }
               },
               child: ImageIcon(
                 AssetImage(
@@ -449,14 +443,6 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
             width: 56,
           ),
         ),
-        // Transform(
-        //   transform: Matrix4.translationValues(
-        //     0.0,
-        //     _translateButton.value * 5.0,
-        //     0.0,
-        //   ),
-        //   child: widget.mode != 0 ? franceData() : SizedBox(),
-        // ),
         Transform(
           transform: Matrix4.translationValues(
             0.0,
@@ -492,164 +478,5 @@ class _CustomFloatingButtonState extends State<CustomFloatingButton>
         toggle(),
       ],
     );
-  }
-}
-
-class LangChangeFloatingButton extends StatefulWidget {
-  Function()? onPressed;
-  List<Widget>? childrens = [];
-  LangChangeFloatingButton({Key? key, childrens, onPressed}) : super(key: key);
-  // LangChangeFloatingButton({this.childrens,this.onPressed});
-
-  @override
-  State<StatefulWidget> createState() => LangChangeFloatingButtonState();
-}
-
-class LangChangeFloatingButtonState extends State<LangChangeFloatingButton>
-    with SingleTickerProviderStateMixin {
-  List<Widget> childrens = [];
-  bool isOpened = false;
-  AnimationController? _animationController;
-  Animation<Color>? _buttonColor;
-  Animation<double>? _animateIcon;
-  Animation<double>? _translateButton;
-  Curve _curve = Curves.easeOut;
-  double _fabHeight = 50.0;
-  AnimateIconController controller = AnimateIconController();
-
-  @override
-  initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 500))
-          ..addListener(() {
-            setState(() {});
-          });
-    _animateIcon =
-        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController!);
-    _buttonColor = ColorTween(
-      begin: Color(0xff5C376D),
-      end: Colors.deepPurple,
-    ).animate(CurvedAnimation(
-      parent: _animationController!,
-      curve: Interval(
-        0.00,
-        1.00,
-        curve: Curves.linear,
-      ),
-    )) as Animation<Color>?;
-    _translateButton = Tween<double>(
-      begin: _fabHeight,
-      end: -14,
-    ).animate(CurvedAnimation(
-      parent: _animationController!,
-      curve: Interval(
-        0.0,
-        1,
-        curve: _curve,
-      ),
-    ));
-
-    super.initState();
-  }
-
-  @override
-  dispose() {
-    _animationController!.dispose();
-    super.dispose();
-  }
-
-  void initData() {
-    childrens = [];
-    var i = widget.childrens!.length * 1.0;
-    childrens.add(
-      Transform(
-        transform: Matrix4.translationValues(
-          0.0,
-          _translateButton!.value * i,
-          0.0,
-        ),
-        child: SizedBox(
-          height: 56,
-          width: 56,
-        ),
-      ),
-    );
-    widget.childrens?.forEach((element) {
-      childrens.add(Transform(
-        transform: Matrix4.translationValues(
-          0.0,
-          _translateButton!.value * i,
-          0.0,
-        ),
-        child: InkWell(
-          child: element,
-          onTap: () {
-            animate();
-          },
-        ),
-      ));
-      i = i - 1.0;
-    });
-    childrens.add(toggle());
-  }
-
-  animate() {
-    setState(() {
-      print(_translateButton!.value);
-      widget.onPressed!();
-      if (!isOpened) {
-        _animationController?.forward();
-        controller.animateToStart();
-      } else {
-        _animationController?.reverse();
-        controller.animateToEnd();
-      }
-      isOpened = !isOpened;
-    });
-  }
-
-  Widget toggle() {
-    return SizedBox(
-      height: 50,
-      width: 50,
-      child: FloatingActionButton(
-          elevation: 0.0,
-          highlightElevation: 0.0,
-          hoverElevation: 0.0,
-          focusElevation: 0.0,
-          disabledElevation: 0.0,
-          heroTag: "primary",
-          backgroundColor: _buttonColor!.value,
-          onPressed: animate,
-          tooltip: 'Toggle',
-          child: AnimateIcons(
-            controller: controller,
-            startIcon: Icons.language_outlined,
-            endIcon: Icons.close,
-            onStartIconPress: () {
-              print("Clicked on Add Icon");
-              animate();
-              return true;
-            },
-            onEndIconPress: () {
-              print("Clicked on Close Icon");
-              animate();
-              return true;
-            },
-            startIconColor: Colors.white,
-            endIconColor: Colors.white,
-            duration: Duration(milliseconds: 500),
-          )),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    initData();
-    return Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: childrens);
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/services/logging_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:retry/retry.dart';
@@ -18,19 +19,16 @@ class NetworkService {
     HttpHeaders.acceptHeader: "application/json",
     "X-Requested-With": "XMLHttpRequest"
   };
-  // ignore: prefer_final_fields
-  Map<String, String> _requestHeadersToken = {
-    // HttpHeaders.acceptHeader: "application/json",
-    // "X-Requested-With": "XMLHttpRequest",
-    "token": Get.find<StorageHelperController>().Token,
-  };
+  final storage2 = FlutterSecureStorage();
+  String Token = '';
   Future<dynamic> get({String? url, String? token}) async {
+    Token = await storage2.read(key: 'token') ?? '';
     var responseJson;
     try {
       final response = await retry(
         () => http
             .get(Uri.parse(BASE_URL + url!),
-                headers: token == null ? _requestHeaders : _requestHeadersToken)
+                headers: token == null ? _requestHeaders : {'token': Token})
             .timeout(const Duration(seconds: 10)),
         retryIf: (error) =>
             error is SocketException || error is TimeoutException,
@@ -45,7 +43,7 @@ class NetworkService {
   }
 
   Future<dynamic> post({String? url, dynamic body, String? token}) async {
-    // appendAPITokenToHeader();
+    Token = await storage2.read(key: 'token') ?? '';
     print("post $body");
 
     _log.wtf(BASE_URL + url!);
@@ -53,7 +51,7 @@ class NetworkService {
     try {
       final response = await http.post(Uri.parse(BASE_URL + url),
           body: body,
-          headers: token == null ? _requestHeaders : _requestHeadersToken);
+          headers: token == null ? _requestHeaders : {'token': Token});
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');

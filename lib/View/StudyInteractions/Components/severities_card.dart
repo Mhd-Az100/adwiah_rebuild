@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:adwiah/View/StudyInteractions/interactions.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +17,11 @@ class SeveritiesCard extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => GetInteractions(
-                        details,
-                        this.mode == 0
-                            ? this.details[0]['ID']
-                            : this.details[0]['Ing_ID'],
-                        this.mode)));
+                      details:   details,
+                      id:   mode == 0
+                            ? details[0]['ID']
+                            : details[0]['Ing_ID'],
+                      mode:   mode)));
           },
           child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 1, 25, 1),
@@ -32,7 +34,7 @@ class SeveritiesCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Text(
-                      this.data['Severity_Level'],
+                      data['Severity_Level'],
                       style: TextStyle(
                           fontSize: 14,
                           color: Colors.white,
@@ -66,11 +68,11 @@ class SeveritiesCard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => GetInteractions(
-                            details,
-                            this.mode == 0
-                                ? this.details[0]['ID']
-                                : this.details[0]['Ing_ID'],
-                            this.mode)));
+                            details: details,
+                            id: mode == 0
+                                ? details[0]['ID']
+                                : details[0]['Ing_ID'],
+                            mode: mode)));
               },
             ),
           ),

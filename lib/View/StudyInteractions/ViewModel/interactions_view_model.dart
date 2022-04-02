@@ -1,9 +1,12 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
 
+import 'dart:convert';
+
 import 'package:adwiah/Models/interactions.dart';
 import 'package:adwiah/Models/study_interactions.dart';
 import 'package:adwiah/Services/studyinteraction_service.dart';
 import 'package:adwiah/Widgets/AlphaScroll/ViewModel/alphabet_view_model.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,9 +42,14 @@ class StudyInteractionsController extends GetxController {
   getInteractions(String id) async {
     interaction = [];
     try {
+      BotToast.showLoading();
       interaction = await studyInteractionService.getInteractions(id);
+      var interactionEnecode = jsonEncode(interaction);
+      return interactionEnecode;
     } catch (e) {
       print('Errorr $e');
+    } finally {
+      BotToast.closeAllLoading();
     }
   }
 
@@ -64,13 +72,13 @@ class StudyInteractionsController extends GetxController {
     // }
   }
   getInteractionDetails(String id) async {
-    // studyBrand = [];
-    // try {
-    //   studyBrand = await studyInteractionService
-    //       .getInteractionDetails(id);
-    // } catch (e) {
-    //   print('Errorr $e');
-    // }
+    try {
+      var interactionDetails =
+          await studyInteractionService.getInteractionDetails(id);
+      return jsonEncode(interactionDetails);
+    } catch (e) {
+      print('Errorr $e');
+    }
   }
 
   Map<InteractioObject, bool> selectedIng = {};

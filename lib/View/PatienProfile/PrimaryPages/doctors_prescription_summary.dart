@@ -38,7 +38,7 @@ class _DoctorPrescriptionSummaryState extends State<DoctorPrescriptionSummary> {
   _getPrescriptionOfVisit(int id) async {
     print("visi id :$id");
     _prescriptionList =
-        (await DatabaseHelper.instance?.getPrescriptionByVisitId(id))!;
+        (await DatabaseHelper.instance?.getPrescriptionByVisitId(id)) ?? [];
     print("prescription list : $_prescriptionList");
     for (int i = 0; i < _prescriptionList.length; i++) {
       print("prescription id : ${_prescriptionList[i].id}");

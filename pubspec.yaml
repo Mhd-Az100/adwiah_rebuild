@@ -43,6 +43,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0
   flutter_html: ^2.2.1
   flutter_native_timezone: ^2.0.0
+  flutter_secure_storage: ^5.0.2
   font_awesome_flutter: ^9.2.0
   geolocator: ^8.2.0
   get: ^4.6.1

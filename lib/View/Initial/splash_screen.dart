@@ -4,6 +4,7 @@ import 'package:adwiah/View/AuthPages/logIn_register_view.dart';
 import 'package:adwiah/View/Home/home.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:adwiah/View/Map/ViewModel/map_view_model.dart';
@@ -15,15 +16,15 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   StorageHelperController soragectrl = Get.find<StorageHelperController>();
-  @override
-  void initState() {
-    super.initState();
+  final storage2 = FlutterSecureStorage();
 
-    soragectrl.Token == '' || soragectrl.Token == null
+  String Token = '';
+  initData() async {
+    Token = await storage2.read(key: 'token') ?? '';
+    Token == '' || Token == null
         ? Timer(
             const Duration(seconds: 3), () => Get.off(LoginRegisterScreen()))
         : Timer(const Duration(seconds: 3), () async {
-            await Get.find<StorageHelperController>().readToken();
             await Get.find<InitialAppController>().getIngredientList();
             await Get.find<InitialAppController>().getBrandList();
             await Get.find<InitialAppController>().getDisease();
@@ -36,6 +37,12 @@ class _SplashScreenState extends State<SplashScreen> {
             Get.find<MapController>().getLocations();
             Get.off(Home());
           });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initData();
   }
 
   @override

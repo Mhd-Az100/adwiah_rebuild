@@ -199,9 +199,9 @@ class _PatientPrifileState extends State<PatientPrifile> {
 
   @override
   void initState() {
-    initData();
     super.initState();
     lang = widget.lang;
+    initData();
   }
 
   @override

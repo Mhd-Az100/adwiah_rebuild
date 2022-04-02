@@ -1,10 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/state_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
 class StorageHelperController extends GetxController {
   final storage = GetStorage();
+  final storage2 = FlutterSecureStorage();
+
   String Token = '';
   var email = ''.obs;
   String password = '';
@@ -46,11 +49,8 @@ class StorageHelperController extends GetxController {
   }
 
   saveToken(String token) async {
-    await storage.write('token', token);
-  }
-
-  readToken() {
-    Token = storage.read('token') ?? '';
+    await storage2.write(key: 'token', value: token);
+    Token = (await storage2.read(key: 'token'))!;
   }
 
   saveCountryId(String country_id) async {
@@ -65,7 +65,6 @@ class StorageHelperController extends GetxController {
 
   @override
   void onInit() {
-    readToken();
     readinfouser();
     super.onInit();
   }

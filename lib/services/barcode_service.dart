@@ -10,7 +10,6 @@ class BarcodeService {
 
   Future getBrandsByBarcode(String code) async {
     List<BrandByIdModel> brandsByBarcode = [];
-    print(soragectrl.Token);
     var response = await _network.get(
         url: 'get_brands_by_Barcode/$code/${soragectrl.country_id}',
         token: soragectrl.Token);

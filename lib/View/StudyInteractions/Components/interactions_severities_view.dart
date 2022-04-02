@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:adwiah/View/Barcode/barcodeReader.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/StudyInteractions/Components/backgroundsDrawings.dart';
-import 'package:adwiah/View/StudyInteractions/Components/interactionsComponents.dart';
+import 'package:adwiah/View/StudyInteractions/Components/severities_card.dart';
 import 'package:adwiah/View/StudyInteractions/ViewModel/interactions_view_model.dart';
 import 'package:adwiah/Widgets/floatbox.dart';
 import 'package:adwiah/widgets/bottombar.dart';
@@ -56,7 +56,7 @@ class _InteractionsSeveritiesScreenState
             title: Text('Error!!!'),
             content: SingleChildScrollView(
               child: ListBody(
-                children: <Widget>[
+                children: const <Widget>[
                   Text('Database is under update'),
                 ],
               ),

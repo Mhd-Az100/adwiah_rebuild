@@ -1,9 +1,6 @@
 // ignore_for_file: unnecessary_this, non_constant_identifier_names
 
-import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/AuthPages/verificaion_view.dart';
-import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
-import 'package:adwiah/View/Map/ViewModel/map_view_model.dart';
 import 'package:adwiah/services/auth_service.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
@@ -41,17 +38,6 @@ class SignUpController extends GetxController {
           email: this.emailController.text,
         );
         if (response) {
-          await Get.find<StorageHelperController>().readToken();
-          await Get.find<InitialAppController>().getIngredientList();
-          await Get.find<InitialAppController>().getBrandList();
-          await Get.find<InitialAppController>().getDisease();
-          Get.find<InitialAppController>().geticons();
-          Get.find<InitialAppController>().getabouttexts();
-          Get.find<InitialAppController>().getcountries();
-          Get.find<InitialAppController>().getMedicianCenters();
-          Get.find<InitialAppController>().getPosts();
-          Get.find<MapController>().getVersions();
-          Get.find<MapController>().getLocations();
           Get.off(Verification(this.emailController.text));
         } else {
           BotToast.showText(text: response["message"]);

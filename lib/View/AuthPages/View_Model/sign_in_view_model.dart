@@ -11,6 +11,7 @@ import 'package:adwiah/services/auth_service.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:oktoast/oktoast.dart';
 
 class SignInController extends GetxController {
@@ -39,7 +40,7 @@ class SignInController extends GetxController {
         if (loginData != null) {
           this.loggingIn.value = false;
           if (loginData!.success!) {
-            soragectrl.saveToken(loginData!.userGuidId!);
+            await soragectrl.saveToken(loginData!.userGuidId!);
 
             soragectrl.saveinfouser(
                 f_name: loginData!.fName!,
@@ -52,10 +53,9 @@ class SignInController extends GetxController {
                     emailController.text, passwordController.text)
                 : soragectrl.saveaccount('', '');
             if (loginData!.status == 1) {
-              await Get.find<StorageHelperController>().readToken();
               await Get.find<InitialAppController>().getIngredientList();
               await Get.find<InitialAppController>().getBrandList();
-              await Get.find<InitialAppController>().getDisease();
+              Get.find<InitialAppController>().getDisease();
               Get.find<InitialAppController>().geticons();
               Get.find<InitialAppController>().getabouttexts();
               Get.find<InitialAppController>().getcountries();

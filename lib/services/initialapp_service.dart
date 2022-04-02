@@ -9,6 +9,7 @@ import 'package:adwiah/Models/proffisionslist.dart';
 import 'package:adwiah/Services/network_service/network_service.dart';
 import 'package:adwiah/Utils/storageController.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:oktoast/oktoast.dart';
 
 class InitialServices {
@@ -99,10 +100,13 @@ class InitialServices {
 
   Future getIngredient() async {
     List<IngredientModel> ingredList = [];
+    print('[[[[[[[[[[[[[[object]]]]]]]]]]]]]]');
     print(soragectrl.Token);
+    print('[[[[[[[[[[[[[[object]]]]]]]]]]]]]]');
     var response = await _network.get(
         url: 'get_ingredient_list/null/${soragectrl.country_id}',
         token: soragectrl.Token);
+
     if (response != null) {
       for (var item in response) {
         ingredList.add(IngredientModel.fromJson(item));
@@ -114,6 +118,8 @@ class InitialServices {
       return false;
     }
   }
+
+  final storage = GetStorage();
 
   Future getBrands() async {
     List<BrandModel> brandList = [];

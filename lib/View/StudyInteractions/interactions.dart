@@ -1,12 +1,11 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, use_full_hex_values_for_flutter_colors, unnecessary_null_comparison, prefer_is_empty
 
 import 'dart:convert';
 import 'dart:ui';
-
 import 'package:adwiah/View/Barcode/barcodeReader.dart';
+import 'package:adwiah/View/Dosage/dosage_detaild_box_view.dart';
 import 'package:adwiah/View/Drawer/drawer_view.dart';
 import 'package:adwiah/View/StudyInteractions/ViewModel/interactions_view_model.dart';
-import 'package:adwiah/Widgets/FloatingButton/dosage_detaild_box_view.dart';
 import 'package:adwiah/Widgets/floatbox.dart';
 import 'package:adwiah/widgets/bottombar.dart';
 import 'package:adwiah/widgets/header.dart';
@@ -16,7 +15,7 @@ import 'package:get/get.dart';
 
 class GetInteractions extends StatefulWidget {
   final details, id, mode;
-  GetInteractions(this.details, this.id, this.mode);
+  const GetInteractions({this.details, this.id, this.mode});
   @override
   _GetInteractionsState createState() => _GetInteractionsState();
 }
@@ -33,6 +32,7 @@ class _GetInteractionsState extends State<GetInteractions> {
   }
 
   void initData() async {
+    print(widget.id);
     var res = widget.mode == 0
         ? await controller.getInteractions(
             widget.id,
@@ -62,7 +62,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                                       MediaQuery.of(context).textScaleFactor,
                                   textAlign: TextAlign.center,
                                   text: TextSpan(
-                                      children: [
+                                      children: const [
                                         TextSpan(
                                             text:
                                                 'في ما يلي قائمة بالتعارضات شديدة الخطورة ' +
@@ -163,7 +163,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                                     MediaQuery.of(context).textScaleFactor,
                                 textAlign: TextAlign.center,
                                 text: TextSpan(
-                                    children: [
+                                    children: const [
                                       TextSpan(
                                           text:
                                               'لا يوجد تعارضات شديدة الخطورة لهذا الدواء ' +
@@ -176,7 +176,6 @@ class _GetInteractionsState extends State<GetInteractions> {
                                           text:
                                               'في ما يلي بعض التعارضات الهامة، كما يمكنك إيجاد بعض التعارضات بدرجة خطورة أقل فقط عبر موقع الانترنت الخاص بنا'),
                                       TextSpan(text: '\nwww.adwiah.net\n\n'),
-
                                       TextSpan(
                                           text:
                                               'There are no contraindicated interactions for this drug ' +
@@ -189,21 +188,6 @@ class _GetInteractionsState extends State<GetInteractions> {
                                           text:
                                               'Here are a list of most serious interactions, although there are less significant ones you can find them only in our website.'),
                                       TextSpan(text: '\nwww.adwiah.net'),
-                                      // TextSpan(
-                                      //     text: ' www.adwiah.net ',
-                                      //     style: TextStyle(fontStyle: FontStyle.italic, color: Colors.black54),
-                                      //     recognizer: TapGestureRecognizer()
-                                      //       ..onTap = () async {
-                                      //         print('Launching.................');
-                                      //         if (await canLaunch('https://adwiah.net/')) {
-                                      //           await launch(
-                                      //             'https://adwiah.net/',
-                                      //             forceSafariVC: true,
-                                      //             forceWebView: true,
-                                      //           );
-                                      //           return;
-                                      //         }
-                                      //       })
                                     ],
                                     style: TextStyle(
                                         fontSize: 18, color: Colors.black)),
@@ -264,7 +248,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                               MediaQuery.of(context).textScaleFactor,
                           textAlign: TextAlign.center,
                           text: TextSpan(
-                              children: [
+                              children: const [
                                 TextSpan(
                                     text:
                                         'لا يوجد تعارضات شديدة الخطورة لهذا الدواء ' +
@@ -277,7 +261,6 @@ class _GetInteractionsState extends State<GetInteractions> {
                                     text:
                                         'يوجد بعض التعارضات بدرجة خطورة أقل يمكنك إيجادها فقط عبر موقع الانترنت الخاص بنا'),
                                 TextSpan(text: '\nwww.adwiah.net\n\n'),
-
                                 TextSpan(
                                     text:
                                         'There are no contraindicated interactions for this drug ' +
@@ -290,25 +273,6 @@ class _GetInteractionsState extends State<GetInteractions> {
                                     text:
                                         'there are less significant ones you can find them only in our website.'),
                                 TextSpan(text: '\nwww.adwiah.net'),
-                                // TextSpan(
-                                //     text: ' www.adwiah.net ',
-                                //     style: TextStyle(
-                                //         fontStyle: FontStyle.italic,
-                                //         color: Colors.black54),
-                                //     recognizer: TapGestureRecognizer()
-                                //       ..onTap=()async{
-                                //         print('Launching.................');
-                                //         if (await canLaunch('https://adwiah.net/site/')) {
-                                //
-                                //           await launch(
-                                //             'https://adwiah.net/site/',
-                                //             forceSafariVC: true,
-                                //             forceWebView: true,
-                                //           );
-                                //           return;
-                                //         }
-                                //       }
-                                // )
                               ],
                               style:
                                   TextStyle(fontSize: 18, color: Colors.black)),
@@ -354,8 +318,7 @@ class _GetInteractionsState extends State<GetInteractions> {
     if (data != null) {
       if (data.length == 0) {
         return Center(
-          child: CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Color(0xffed5565))),
+          child: Text('No Contraindicated  Interaction'),
         );
       } else {
         for (var i = 0; i < data.length; i += 1) {
@@ -373,7 +336,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                         title: Text('Loading'),
                         content: SingleChildScrollView(
                           child: ListBody(
-                            children: <Widget>[
+                            children: const [
                               Center(
                                 child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -386,8 +349,8 @@ class _GetInteractionsState extends State<GetInteractions> {
                     },
                   );
 
-                  var a = await controller
-                      .getInteractionDetails(data[i]['Interaction_ID']);
+                  var a = await controller.getInteractionDetails(
+                      data[i]['Interaction_ID'].toString());
                   var res = jsonDecode(a);
                   List<Widget> text = [];
                   text.add(RichText(
@@ -430,10 +393,6 @@ class _GetInteractionsState extends State<GetInteractions> {
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400))
                                   ],
-                                // text: res[0]['IngA_name'] +
-                                //     ' interacts with ' +
-                                //     res[0]['IngB_name'] +
-                                //     ' as the following :',
                                 style: TextStyle(
                                     height: 1.5,
                                     color: Colors.black,
@@ -551,16 +510,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                       padding: const EdgeInsets.all(8.0),
                       child: Html(
                         data: data[i]['IngB_Name'],
-                      )
-                      // Text(
-                      //   data[i]['IngB_Name'],
-                      //   textAlign: TextAlign.start,
-                      //   style: TextStyle(
-                      //       color: Colors.black54,
-                      //       fontFamily: 'Roboto',
-                      //       fontWeight: FontWeight.w500),
-                      // ),
-                      ),
+                      )),
                 ),
               ),
             ),
@@ -619,9 +569,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                   child: Center(
                     child: widget.mode == 1
                         ? FloatTextBox(
-                            this
-                                .widget
-                                .details[0]['Brand_Name']
+                            widget.details[0]['Brand_Name']
                                 .toString()
                                 .toUpperCase(),
                             (widget.details[0]['Pharmaceutical_Form']))
@@ -634,9 +582,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                                       builder: (context) {
                                         return AlertDialog(
                                           content: Text(
-                                              this
-                                                  .widget
-                                                  .details[0]['Name']
+                                              widget.details[0]['Name']
                                                   .toString()
                                                   .toUpperCase(),
                                               style: TextStyle(
@@ -664,9 +610,7 @@ class _GetInteractionsState extends State<GetInteractions> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Center(
                                         child: Text(
-                                      this
-                                          .widget
-                                          .details[0]['Name']
+                                      widget.details[0]['Name']
                                           .toString()
                                           .toUpperCase(),
                                       overflow: TextOverflow.ellipsis,
