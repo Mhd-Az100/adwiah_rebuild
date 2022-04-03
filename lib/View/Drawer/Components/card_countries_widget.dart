@@ -1,5 +1,5 @@
 import 'package:adwiah/Utils/storageController.dart';
-import 'package:adwiah/View/Home/home.dart';
+import 'package:adwiah/View/Home/home_view.dart';
 import 'package:adwiah/View/Initial/View_Model/initial_data_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

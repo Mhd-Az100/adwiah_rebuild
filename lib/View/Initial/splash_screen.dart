@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:adwiah/Utils/storageController.dart';
 import 'package:adwiah/View/AuthPages/logIn_register_view.dart';
-import 'package:adwiah/View/Home/home.dart';
+import 'package:adwiah/View/Home/home_view.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
